@@ -36,24 +36,41 @@ export default function Dashboard() {
 
     const loadWebsites = async (projectId) => {
         if (!projectId) return;
-        // if projectWebsites.has(projectId) return;
         if (projectWebsites[projectId]) return;
-        const res = await fetch(
-            `http://localhost:3000/projects/${projectId}/websites`,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
 
-        const data = await res.json();
+        try {
+            const { data } = await api.get(
+                `/projects/${projectId}/websites`
+            );
 
-        setProjectWebsites(prev => ({
-            ...prev,
-            [projectId]: data
-        }));
+            setProjectWebsites((prev) => ({
+                ...prev,
+                [projectId]: data,
+            }));
+        } catch (err) {
+            console.error(err);
+        }
     };
+    // const loadWebsites = async (projectId) => {
+    //     if (!projectId) return;
+    //     // if projectWebsites.has(projectId) return;
+    //     if (projectWebsites[projectId]) return;
+    //     const res = await fetch(
+    //         `http://localhost:3000/projects/${projectId}/websites`,
+    //         {
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //             },
+    //         }
+    //     );
+
+    //     const data = await res.json();
+
+    //     setProjectWebsites(prev => ({
+    //         ...prev,
+    //         [projectId]: data
+    //     }));
+    // };
 
     useEffect(() => {
         loadWebsites(activeProjectData?._id);
@@ -64,11 +81,13 @@ export default function Dashboard() {
     }, [projectWebsites])
 
     useEffect(() => {
-        const socket = io("http://localhost:3000", {
-            auth: {
-                token: localStorage.getItem("token")
-            }
-        });
+        const socket = io(import.meta.env.VITE_API_URL
+            // "http://localhost:3000"
+            , {
+                auth: {
+                    token: localStorage.getItem("token")
+                }
+            });
 
         socket.on("websiteUpdate", (data) => {
             setProjectWebsites(prev => {
