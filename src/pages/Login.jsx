@@ -65,6 +65,7 @@
 // }
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import api from '../api/axios'
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -81,19 +82,38 @@ export default function Login() {
         setLoading(true);
         setError("");
 
-        try {
-            const res = await fetch("http://localhost:3000/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
-                }),
-            });
+        //     try {
+        //         const res = await fetch("http://localhost:3000/auth/login", {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //             },
+        //             body: JSON.stringify({
+        //                 email,
+        //                 password,
+        //             }),
+        //         });
 
-            const data = await res.json();
+        //         const data = await res.json();
+
+        //         if (data.token) {
+        //             localStorage.setItem("token", data.token);
+        //             navigate("/dashboard");
+        //         } else {
+        //             setError(data.error || "Invalid credentials");
+        //         }
+        //     } catch (err) {
+        //         console.error(err);
+        //         setError("Unable to connect to server");
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // };
+        try {
+            const { data } = await api.post("/auth/login", {
+                email,
+                password,
+            });
 
             if (data.token) {
                 localStorage.setItem("token", data.token);
@@ -103,12 +123,14 @@ export default function Login() {
             }
         } catch (err) {
             console.error(err);
-            setError("Unable to connect to server");
+            setError(
+                err.response?.data?.error ||
+                "Unable to connect to server"
+            );
         } finally {
             setLoading(false);
         }
-    };
-
+    }
     return (
         <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center px-6">
 

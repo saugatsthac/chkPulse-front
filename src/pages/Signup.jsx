@@ -52,6 +52,7 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from '../api/axios'
 
 export default function Signup() {
     const [email, setEmail] = useState("");
@@ -62,6 +63,41 @@ export default function Signup() {
 
     const navigate = useNavigate();
 
+    // const handleSignup = async (e) => {
+    //     e.preventDefault();
+
+    //     setLoading(true);
+    //     setError("");
+
+    //     try {
+    //         const res = await fetch("http://localhost:3000/auth/signup", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 email,
+    //                 password,
+    //             }),
+    //         });
+
+    //         const data = await res.json();
+
+    //         if (!res.ok) {
+    //             setError(data.error || "Signup failed");
+    //             return;
+    //         }
+
+    //         alert("Account created successfully");
+
+    //         navigate("/login");
+    //     } catch (err) {
+    //         console.error(err);
+    //         setError("Unable to connect to server");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
     const handleSignup = async (e) => {
         e.preventDefault();
 
@@ -69,35 +105,24 @@ export default function Signup() {
         setError("");
 
         try {
-            const res = await fetch("http://localhost:3000/auth/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
-                }),
+            const { data } = await api.post("/auth/signup", {
+                email,
+                password,
             });
 
-            const data = await res.json();
-
-            if (!res.ok) {
-                setError(data.error || "Signup failed");
-                return;
-            }
-
             alert("Account created successfully");
-
             navigate("/login");
         } catch (err) {
             console.error(err);
-            setError("Unable to connect to server");
+
+            setError(
+                err.response?.data?.error ||
+                "Signup failed"
+            );
         } finally {
             setLoading(false);
         }
     };
-
     return (
         <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center px-6">
 
