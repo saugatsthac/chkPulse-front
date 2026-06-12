@@ -120,7 +120,7 @@ export default function Dashboard() {
         setModalType(null);
     };
 
-    return (<div className="min-h-screen h-screen min-w-screen w-screen bg-[#0B0F19] text-white flex" >
+    return (<div className="min-h-screen h-screen min-w-screen w-screen bg-[#0B0F19] text-white flex overflow-hidden" >
 
         <ProjectAndUrls
             projects={projects}

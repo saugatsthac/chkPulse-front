@@ -52,7 +52,7 @@ bg-slate-800/40 hover:bg-slate-800
             </div>
 
 
-            <div className="overflow-auto w-full scrollbar-thumb-blue-900/10 scrollbar-gutter-stable">
+            <div className="overflow-y-auto overflow-x-hidden w-full scrollbar-thumb-blue-900/10 scrollbar-gutter-stable">
                 <div className="p-4 w-full flex flex-col gap-2">
 
                     <div className="w-full flex gap-2 font-light">
