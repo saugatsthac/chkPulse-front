@@ -8,11 +8,9 @@ import NewProject from "../Forms/NewProject";
 import Main from "../Components/Main";
 import api from "../api/axios";
 
-
 export default function Dashboard() {
     const [projects, setProjects] = useState([]);
     const [activeProjectData, setActiveProjectData] = useState(null);
-    const [sidebarSelection, setSidebarSelection] = useState('dashboard')
 
     const loadProjects = async () => {
         try {
@@ -120,7 +118,7 @@ export default function Dashboard() {
         setModalType(null);
     };
 
-    return (<div className="min-h-screen h-screen min-w-screen w-screen bg-[#0B0F19] text-white flex" >
+    return (<div className="min-h-screen h-screen min-w-screen w-screen bg-[#0B0F19] text-white flex gap-2" >
 
         <ProjectAndUrls
             projects={projects}
@@ -128,14 +126,12 @@ export default function Dashboard() {
             setActiveProjectData={setActiveProjectData}
             setModalType={setModalType}
             setShowModal={setShowModal}
-            setSidebarSelection={setSidebarSelection}
         />
 
-        {sidebarSelection === 'dashboard' && <Main setShowModal={setShowModal} setModalType={setModalType}
+        <Main setShowModal={setShowModal} setModalType={setModalType}
             activeProjectData={activeProjectData}
             projectWebsites={projectWebsites[activeProjectData?._id] || []}
-            sidebarSelection={sidebarSelection}
-        />}
+        />
 
 
         {showModal &&
