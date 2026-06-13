@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { io } from "socket.io-client";
 import ProjectAndUrls from "../Components/ProjectAndUrls";
 // import DashboardLayout from "../components/DashboardLayout";
@@ -53,6 +53,37 @@ export default function Dashboard() {
             console.error(err);
         }
     };
+    const [projectMetrics, setProjectMetrics] = useState({});
+
+    const avgResponseTime = useMemo(() => {
+        const websites = projectWebsites[activeProjectData?._id] || [];
+
+        if (!websites.length) return 0;
+
+        return (
+            websites.reduce(
+                (sum, website) => sum + (website.responseTime || 0),
+                0
+            ) / websites.length
+        );
+    }, [projectWebsites, activeProjectData?._id]);
+
+    const totalMonitors = useMemo(() => {
+        return (projectWebsites[activeProjectData?._id] || []).length;
+    }, [projectWebsites, activeProjectData?._id]);
+    console.log(totalMonitors)
+
+    const openIncidents = useMemo(() => {
+        return (projectWebsites[activeProjectData?._id] || [])
+            .filter(w => w.status !== "UP")
+            .length;
+    }, [projectWebsites, activeProjectData?._id]);
+
+    console.log('open', openIncidents)
+    // useEffect(() => {
+    //     const totalMonitors = projectWebsites.length;
+    //     console.log('totalWebsites', projectWebsites.length)
+    // }, [])
     // const loadWebsites = async (projectId) => {
     //     if (!projectId) return;
     //     // if projectWebsites.has(projectId) return;
@@ -135,6 +166,9 @@ export default function Dashboard() {
             activeProjectData={activeProjectData}
             projectWebsites={projectWebsites[activeProjectData?._id] || []}
             sidebarSelection={sidebarSelection}
+            avgResponseTime={avgResponseTime}
+            totalMonitors={totalMonitors}
+            openIncidents={openIncidents}
         />}
 
 

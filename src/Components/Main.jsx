@@ -1,6 +1,8 @@
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-export default function Main({ setShowModal, setModalType, activeProjectData, projectWebsites, sidebarSelection }) {
+export default function Main({ setShowModal, setModalType, activeProjectData, projectWebsites, sidebarSelection,
+    avgResponseTime, totalMonitors, openIncidents
+}) {
     function formatTimeAgo(timestamp) {
         const now = Date.now();
         const diff = now - timestamp;
@@ -58,9 +60,35 @@ bg-slate-800/40 hover:bg-slate-800
                     <div className="w-full flex gap-2 font-light">
 
                         <div className="aspect-square flex-1 border border-white/10 rounded-2xl text-sm flex justify-center items-start bg-blue-900/10">OVERALL UPTIME</div>
-                        <div className="aspect-square flex-1 border border-white/10 rounded-2xl text-sm flex justify-center items-start bg-blue-900/10">MONITORS</div>
-                        <div className="aspect-square flex-1 border border-white/10 rounded-2xl text-sm flex justify-center items-start bg-blue-900/10">AVG RESPONSE</div>
-                        <div className="aspect-square flex-1 border border-white/10 rounded-2xl text-sm flex justify-center items-start bg-blue-900/10">OPEN INCIDENTS</div>
+                        <div className="aspect-square flex-1 flex-col border border-white/10 rounded-2xl text-sm flex justify-center items-center bg-blue-900/10">
+                            <span>
+                                MONITORS
+                            </span>
+                            <span className='text-2xl'>
+                                {totalMonitors}
+                            </span>
+                        </div>
+                        <div className="aspect-square flex-1 border border-white/10 rounded-2xl text-sm flex justify-center items-center bg-blue-900/10
+                        flex-col">
+                            <span className=''>
+                                AVG RESPONSE
+                            </span>
+                            <span className='text-2xl'>
+                                {Math.round(avgResponseTime)} ms
+                            </span>
+                            <span>
+                                Across active monitors
+                            </span>
+                        </div>
+                        <div className="aspect-square flex-1 border border-white/10 rounded-2xl text-sm flex justify-center items-center bg-blue-900/10
+                        flex-col">
+                            <span>
+                                OPEN INCIDENTS
+                            </span>
+                            <span className='text-2xl'>
+                                {openIncidents}
+                            </span>
+                        </div>
                     </div>
 
 
