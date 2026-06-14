@@ -1,4 +1,5 @@
 import RefreshIcon from '@mui/icons-material/Refresh';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export default function Main({ setShowModal, setModalType, activeProjectData, projectWebsites, sidebarSelection,
     avgResponseTime, totalMonitors, openIncidents
@@ -30,8 +31,22 @@ export default function Main({ setShowModal, setModalType, activeProjectData, pr
                         border-white/10" */}
                         {/* border
                border-white/10 */}
-                        <span className="text-3xl font-light 
-                            px-3 py-1">.{activeProjectData?.name}</span>
+                        <div className='flex gap-5 border rounded-2xl px-2 items-center border-white/5'>
+                            <span className="text-lg flex items-center gap-2">
+                                <span
+                                    className="w-2.5 h-2.5 rounded-full inline-block"
+                                    style={{ backgroundColor: activeProjectData?.color }}
+                                />
+                                <span>
+                                    {activeProjectData?.name}
+                                </span>
+                            </span>
+                            {/* <span className="text-3xl font-light 
+                            pl-3 py-1">
+                                <span className='min-w-8 min-h-8 border bg-red-300'>s</span>.{activeProjectData?.name}</span> */}
+                            <MoreVertIcon
+                                className='hover:bg-white/5 min-h-8 min-w-8 hover:rounded-xl transition-all duration-500 bg-transparent' />
+                        </div>
                         <button className="text-lg font-light rounded-2xl px-3 py-1
                                         flex items-center gap-1 bg-slate-800/40 hover:bg-slate-800">
                             <RefreshIcon /> refresh</button>
@@ -59,7 +74,11 @@ bg-slate-800/40 hover:bg-slate-800
 
                     <div className="w-full flex gap-2 font-light">
 
-                        <div className="aspect-square flex-1 border border-white/10 rounded-2xl text-sm flex justify-center items-start bg-blue-900/10">OVERALL UPTIME</div>
+                        <div className="aspect-square flex-1 flex-col border border-white/10 rounded-2xl text-sm flex justify-center items-center bg-blue-900/10">
+                            <span>
+                                OVERALL UPTIME
+                            </span>
+                        </div>
                         <div className="aspect-square flex-1 flex-col border border-white/10 rounded-2xl text-sm flex justify-center items-center bg-blue-900/10">
                             <span>
                                 MONITORS
@@ -93,7 +112,8 @@ bg-slate-800/40 hover:bg-slate-800
 
 
                     <h2>MONITORS</h2>
-                    <div className="border border-white/10 rounded-lg min-h-[50vh] w-full font-light bg-blue-900/10">
+                    <div className="border border-white/10 rounded-lg min-h-[50vh] w-full font-light bg-blue-900/10
+                    flex flex-col">
 
                         {/* border-b border-white/10 */}
                         <div className="w-full flex justify-between border-b border-white/10
@@ -104,24 +124,49 @@ bg-slate-800/40 hover:bg-slate-800
                             <span className="min-w-1/5 text-center">LAST 14 CHECKS</span>
                             <span className="min-w-1/5 text-center">CHECKED</span>
                         </div>
-                        {projectWebsites.map((w) => (
-                            <div className="w-full flex 
-                    cursor-pointer 
+                        <div className='grow flex flex-col overflow-auto'>
+                            {projectWebsites.map((w) => (
+                                <div className="w-full flex p-4
+                    cursor-pointer min-h-1/5 max-h-1/5 items-center
                     transition-all duration-100"
-                                key={w._id}>
+                                    key={w._id}>
 
-                                <div className="min-w-1/5 text-center">{w.url}
+                                    <div className="min-w-1/5 h-full pl-3 flex flex-col justify-between">
+                                        <span>
+                                            {w.url}
+                                        </span>
+                                        <span className='ml-auto'>
+                                            {w.status === 'UP'
+                                                ? (<div className="text-green-400 text-sm flex items-center gap-2 animate-pulse
+                                            bg-green-900/20 px-2 rounded-full">
+                                                    <span className="w-2 h-2 bg-green-400 rounded-full " />
+                                                    LIVE
+                                                </div>
+                                                ) : w.status === 'DOWN'
+                                                    ? (<div className="text-red-900 text-sm flex items-center gap-2 animate-pulse
+                                                bg-red-900/20 px-2 rounded-full">
+                                                        <span className="w-2 h-2 bg-red-400 rounded-full " />
+
+                                                        DOWN
+                                                    </div>
+                                                    ) : (<span>
+
+                                                        UNKNOWN
+                                                    </span>)}
+                                        </span>
+                                    </div>
+                                    <div className="min-w-1/5 text-center">
+                                    </div>
+                                    <div className="min-w-1/5 text-center">{w.responseTime} ms
+                                    </div>
+                                    <div className="min-w-1/5 text-center">
+                                    </div>
+                                    <div className="min-w-1/5 text-center"> {formatTimeAgo(w.lastCheckedAt)}
+                                    </div>
                                 </div>
-                                <div className="min-w-1/5 text-center">
-                                </div>
-                                <div className="min-w-1/5 text-center">{w.responseTime} ms
-                                </div>
-                                <div className="min-w-1/5 text-center">
-                                </div>
-                                <div className="min-w-1/5 text-center"> {formatTimeAgo(w.lastCheckedAt)}
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+
+                        </div>
                     </div>
 
                     <div className="w-full flex gap-2">

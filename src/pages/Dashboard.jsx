@@ -160,6 +160,7 @@ export default function Dashboard() {
             setModalType={setModalType}
             setShowModal={setShowModal}
             setSidebarSelection={setSidebarSelection}
+            sidebarSelection={sidebarSelection}
         />
 
         {sidebarSelection === 'dashboard' && <Main setShowModal={setShowModal} setModalType={setModalType}

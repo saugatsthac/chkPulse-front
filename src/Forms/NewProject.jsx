@@ -1,11 +1,19 @@
 import { useState } from "react";
 import api from "../api/axios";
 
-export default function AddProject({ setProjects }) {
+export default function AddProject({ setProjects, onClose }) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const COLORS = [
+        "#3b82f6", // blue
+        "#ef4444", // red
+        "#22c55e", // green
+        "#f59e0b", // amber
+        "#a855f7", // purple
+        "#ec4899", // pink
+    ];
+    const [color, setColor] = useState("#3b82f6"); // default blue
     const handleCreate = async () => {
         if (!name.trim()) return;
 
@@ -15,6 +23,7 @@ export default function AddProject({ setProjects }) {
             const res = await api.post("/projects", {
                 name,
                 description,
+                color
             });
 
             if (res.data?.success) {
@@ -32,6 +41,8 @@ export default function AddProject({ setProjects }) {
         } finally {
             console.log("Done");
             setLoading(false);
+            onClose();
+
         }
     };
 
@@ -53,19 +64,35 @@ export default function AddProject({ setProjects }) {
                 <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Description (optional)"
+                    placeholder="Description"
                     className="w-full mb-4 px-3 py-2 rounded-lg bg-[#0B1220] border border-slate-700 text-white outline-none focus:border-blue-500 resize-none h-24"
                 />
-
+                <div className="flex gap-2 mb-6 flex-wrap justify-end">
+                    {COLORS.map((c) => (
+                        <button
+                            key={c}
+                            type="button"
+                            onClick={() => setColor(c)}
+                            className={`w-8 h-8 rounded-full border-2 transition cursor-pointer
+                ${color === c ? "border-white scale-110" : "border-transparent"}`}
+                            style={{ backgroundColor: c }}
+                        />
+                    ))}
+                </div>
                 <button
                     onClick={handleCreate}
                     disabled={loading || !name.trim()}
-                    className={`w-full py-2 rounded-lg font-medium transition
-                        ${loading || !name.trim()
-                            ? "bg-slate-700 text-slate-400 cursor-not-allowed"
-                            : "bg-blue-600 hover:bg-blue-500 text-white"
-                        }`}
+                    style={{
+                        backgroundColor: loading || !name.trim() ? "#334155" : color
+                    }}
+                    className="w-full py-2 rounded-lg font-medium text-white transition cursor-pointer"
+                // className={`w-full py-2 rounded-lg font-medium transition
+                //     ${loading || !name.trim()
+                //         ? "bg-slate-700 text-slate-400 cursor-not-allowed"
+                //         : "bg-blue-600 hover:bg-blue-500 text-white"
+                //     }`}
                 >
+                    {/* (optional) */}
                     {loading ? "Creating..." : "Create Project"}
                 </button>
             </div>
