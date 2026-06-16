@@ -13,7 +13,7 @@ export default function ProjectAndUrls({ activeProject, projects, activeProjectD
     return (
         <div className="w-80 border-slate-800 pr-0 text-white/90 h-full flex flex-col gap-2 bg-blue-900/10 font-light">
             {/* <img src='/assets/ChatGPT Image Jun 11, 2026, 08_23_03 PM.png' /> */}
-            <div className="flex flex-col items-start w-full p-4 pb-0">
+            <div className="flex flex-col items-start w-full p-4 pr-2.5 pb-0">
                 <div className='w-full flex h-auto gap-2 py-4 pl-3 justify-start'>
                     {/* <img src={logo} alt='logo' /> */}
                     <img src={monitor} alt='monitor' className='w-1/6' />

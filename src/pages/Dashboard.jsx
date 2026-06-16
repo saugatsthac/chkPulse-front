@@ -44,10 +44,15 @@ export default function Dashboard() {
             const { data } = await api.get(
                 `/projects/${projectId}/websites`
             );
-
+            console.log('received:', data)
+            const websitesWithHistory = data.websites.map((website) => ({
+                ...website,
+                statusChanges: data.statusChanged[website._id || []] || []
+            }))
+            console.log('afterStatus', websitesWithHistory)
             setProjectWebsites((prev) => ({
                 ...prev,
-                [projectId]: data,
+                [projectId]: websitesWithHistory,
             }));
         } catch (err) {
             console.error(err);
@@ -195,52 +200,3 @@ export default function Dashboard() {
 
     </div>);
 }
-// const [websites, setWebsites] = useState([]);
-// const [url, setUrl] = useState("");
-
-// const loadWebsites = useCallback(async () => {
-//     if (!activeProjectData?._id) return;
-
-//     const res = await fetch(`http: //localhost:3000/projects/${activeProject._id}/websites`,
-//         {
-//             headers: {
-//                 Authorization: `Bearer $ {localStorage.getItem("token")}`,
-//             },
-//         });
-
-//     const data = await res.json();
-//     setWebsites(data);
-// }, [activeProjectData]);
-
-// const visibleWebsites = websites.filter((w) =>
-//     w.url.toLowerCase().includes(search.toLowerCase())
-// );
-
-// useEffect(() => {
-//     console.log("Projects updated:", projects);
-// }, [projects]);
-
-// useEffect(() => {
-//     loadProjects();
-// }, []);
-
-// useEffect(() => {
-//     console.log('projects', projects);
-// }, [projects])
-
-// useEffect(() => {
-//     loadWebsites();
-//     localStorage.setItem("activeProject", activeProject);
-// }, [activeProject]);
-
-// useEffect(() => {
-//     console.log("Active project data changed:", activeProjectData);
-// }, [activeProjectData])
-
-{/* <DashboardLayout
-            websites={visibleWebsites}
-            url={url}
-            setUrl={setUrl}
-            activeProjectName={activeProjectData?.name || "Workspace"}
-            handleAddWebsite={handleAddWebsite}
-        /> */}

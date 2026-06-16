@@ -25,21 +25,66 @@ export default function Main({ setShowModal, setModalType, activeProjectData, pr
         .filter(w => w.errorCode || w.errorMessage || w.status === "DOWN")
         .sort((a, b) => b.lastCheckedAt - a.lastCheckedAt);
 
-    // useEffect(() => {
-    //     console.log('incidents', recentIncidents)
-    // }, [recentIncidents])
-    // console.log('yellow')
+    function calculateUptimePercent(timeline) {
+        const upDays = timeline.filter(d => d.status === "UP").length;
+        return (upDays / timeline.length) * 100;
+    }
+
+    function build30DayTimeline(website) {
+        const days = [];
+        console.log('build', website)
+        // Start by assuming every day has current status
+        for (let i = 0; i < 30; i++) {
+            days.push({
+                date: new Date(Date.now() - i * 86400000),
+                status: website.status,
+            });
+        }
+
+        const changes = [...website.statusChanges]
+            .sort(
+                (a, b) =>
+                    new Date(b.changedAt) - new Date(a.changedAt)
+            );
+
+        for (const change of changes) {
+            const changeDate = new Date(change.changedAt);
+
+            for (const day of days) {
+                if (day.date < changeDate) {
+                    day.status = change.previousStatus;
+                }
+            }
+        }
+
+        return days.reverse();
+    }
+    // const website = projectWebsites[projectId]?.find(
+    //     w => w._id === websiteId
+    // );
+
+    // const timeline = website
+    //     ? build30DayTimeline(website)
+    //     : [];
+    const overallUptime =
+        projectWebsites.length === 0
+            ? 0
+            : projectWebsites.reduce((sum, website) => {
+                const timeline = build30DayTimeline(website);
+                return sum + calculateUptimePercent(timeline);
+            }, 0) / projectWebsites.length;
+
+    useEffect(() => {
+        console.log('incidents', recentIncidents)
+    }, [recentIncidents])
+    console.log('yellow')
     return (
         <div className="grow h-full flex flex-col items-start justify-start gap-">
             <div className="w-full flex items-end">
-                <div className="flex gap-3 text-4xl items-center justify-between py-2 w-full bg-blue-900/10 px-1 borderb border-white/10">
-                    <h1 className="tracking-tigh text-3xl font-light">{capitalize(sidebarSelection)}</h1>
+                <div className="flex gap-3 text-4xl items-center justify-between py-2 pl-4 w-full bg-blue-900/10 px-1 borderb border-white/10">
+                    <h1 className="tracking-tight text-3xl font-semibold text-white/92">{capitalize(sidebarSelection)}</h1>
                     <div className="flex items-center gap-3">
 
-                        {/* border rounded-2xl 
-                        border-white/10" */}
-                        {/* border
-               border-white/10 */}
                         <div className='flex gap-5 border rounded-2xl px-2 items-center border-white/5'>
                             <span className="text-lg flex items-center gap-2">
                                 <span
@@ -50,9 +95,7 @@ export default function Main({ setShowModal, setModalType, activeProjectData, pr
                                     {activeProjectData?.name}
                                 </span>
                             </span>
-                            {/* <span className="text-3xl font-light 
-                            pl-3 py-1">
-                                <span className='min-w-8 min-h-8 border bg-red-300'>s</span>.{activeProjectData?.name}</span> */}
+
                             <MoreVertIcon
                                 className='hover:bg-white/5 min-h-8 min-w-8 hover:rounded-xl transition-all duration-500 bg-transparent' />
                         </div>
@@ -86,6 +129,9 @@ bg-slate-800/40 hover:bg-slate-800
                         <div className="aspect-square flex-1 flex-col border border-white/10 rounded-2xl text-sm flex justify-center items-center bg-blue-900/10">
                             <span>
                                 OVERALL UPTIME
+                            </span>
+                            <span className="text-2xl">
+                                {overallUptime.toFixed(2)}%
                             </span>
                         </div>
                         <div className="aspect-square flex-1 flex-col border border-white/10 rounded-2xl text-sm flex justify-center items-center bg-blue-900/10">
@@ -125,22 +171,22 @@ bg-slate-800/40 hover:bg-slate-800
                     flex flex-col">
 
                         {/* border-b border-white/10 */}
-                        <div className="w-full flex justify-between border-b border-white/10
+                        <div className="w-full flex justify-between border-b border-white/10 gap-2
                          bg-blue-900/20">
-                            <span className="min-w-1/5 text-center">MONITOR STATUS</span>
-                            <span className="min-w-1/5 text-center">UPTIME (30 DAYS)</span>
-                            <span className="min-w-1/5 text-center">RESPONSE</span>
-                            <span className="min-w-1/5 text-center">LAST 14 CHECKS</span>
-                            <span className="min-w-1/5 text-center">CHECKED</span>
+                            <span className="min-w-3/12 text-center">MONITOR STATUS</span>
+                            <span className="min-w-3/12 text-center">UPTIME (30 DAYS)</span>
+                            <span className="min-w-1/12 text-center">RESPONSE</span>
+                            <span className="min-w-3/12 text-center">LAST 14 CHECKS</span>
+                            <span className="min-w-2/12 text-center">CHECKED</span>
                         </div>
                         <div className='grow flex flex-col overflow-auto'>
                             {projectWebsites.map((w) => (
-                                <div className="w-full flex p-4
+                                <div className="w-full flex py-4 gap-2 overflow-hidden
                     cursor-pointer min-h-1/5 max-h-1/5 items-center
                     transition-all duration-100"
                                     key={w._id}>
 
-                                    <div className="min-w-1/5 h-full pl-3 flex flex-col justify-between">
+                                    <div className="min-w-3/12 h-full pl-3 flex flex-col justify-between">
                                         <span>
                                             {w.url}
                                         </span>
@@ -164,13 +210,70 @@ bg-slate-800/40 hover:bg-slate-800
                                                     </span>)}
                                         </span>
                                     </div>
-                                    <div className="min-w-1/5 text-center">
+                                    <div className="min-w-3/12 text-center">
+                                        {(() => {
+                                            const timeline = build30DayTimeline(w);
+                                            const pct = calculateUptimePercent(timeline);
+
+                                            return (
+                                                <div style={{ display: "flex", alignItems: "center", gap: 8, width: "100%" }}>
+
+                                                    {/* % label */}
+
+                                                    {/* bar container */}
+                                                    <div style={{
+                                                        flex: 1,
+                                                        height: 6,
+                                                        background: "#1f2937",
+                                                        borderRadius: 4,
+                                                        overflow: "hidden",
+                                                        display: "flex"
+                                                    }}>
+                                                        {/* green uptime */}
+                                                        <div
+                                                            style={{
+                                                                width: `${pct}%`,
+                                                                background: "#22c55e",
+                                                                height: "100%"
+                                                            }}
+                                                        />
+
+                                                        {/* red downtime */}
+                                                        <div
+                                                            style={{
+                                                                width: `${100 - pct}%`,
+                                                                background: "#ef4444",
+                                                                height: "100%"
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <span style={{
+                                                        fontFamily: "'JetBrains Mono', monospace",
+                                                        fontSize: 12,
+                                                        minWidth: 50,
+                                                        color: pct < 99 ? "#facc15" : "#9ca3af"
+                                                    }}>
+                                                        {pct.toFixed(1)}%
+                                                    </span>
+                                                </div>
+                                            );
+                                        })()}
+
                                     </div>
-                                    <div className="min-w-1/5 text-center">{w.responseTime} ms
+                                    < div className="min-w-1/12 text-center" > {w.responseTime} ms
                                     </div>
-                                    <div className="min-w-1/5 text-center">
+                                    <div className="min-w-3/12 text-center flex gap-1 justify-center items-center">
+                                        {w.last14Checks?.map((check, index) => (
+                                            <span
+                                                key={index}
+                                                className={`w-1 h-6 rounded-full inline-block ${check.status === "UP"
+                                                    ? "bg-green-500"
+                                                    : "bg-red-500"
+                                                    }`}
+                                            />
+                                        ))}
                                     </div>
-                                    <div className="min-w-1/5 text-center"> {formatTimeAgo(w.lastCheckedAt)}
+                                    <div className="min-w-2/12 text-center"> {formatTimeAgo(w.lastCheckedAt)}
                                     </div>
                                 </div>
                             ))}
@@ -215,101 +318,10 @@ bg-slate-800/40 hover:bg-slate-800
                                 ))
                             )}
                         </div>
-                        {/* <div className="w-1/2 min-h-[20vh] border border-white/10 rounded-lg flex flex-col p-3">
-                            <h3>Recent Incidents</h3>
-                            {projectWebsites.map((incident) => (
-                                <div
-                                    key={incident._id}
-                                    className="border-b border-white/10 py-2"
-                                >
-                                    <div>{incident.url}</div>
 
-                                    <div className="text-red-400">
-                                        {incident.errorMessage}
-                                    </div>
-
-                                    <div className="text-sm text-white/50">
-                                        {incident.errorCode}
-                                    </div>
-
-                                    <div className="text-xs text-white/40">
-                                        {formatTimeAgo(incident.createdAt)}
-                                    </div>
-                                </div>
-                            ))}
-                        </div> */}
                         <div className="w-1/2 min-h-[20vh] border border-white/10 rounded-lg p-3">Notifications</div>
                     </div>
                 </div>
-            </div>
+            </div >
         </div >)
 }
-{/* <div className="flex items-baseline gap-8">
-    <div className="flex">
-        <span className="font-bold">pulse</span>
-        <span className="tracking-tight">watch</span>
-    </div>
-</div> */}
-{/* <div className="flex w-full items-end border border-white/30">
-
-</div> */}
-{/* Create New  */ }
-{/* {console.log('projectWebsites', projectWebsites)} */ }
-{/* border border-white/20 rounded-tr-xl rounded-bl-xl */ }
-{/* p-4  */ }
-{/* <div className="w-full grow flex flex-col justify-start gap-2
-overflow-y-auto scrollbar-gutter-stable scrollbar-track-transparent scrollbar-thumb-300
-pr-2"> */}
-{/* p-4  */ }
-{/* border  */ }
-{/* rounded-tr-xl rounded-bl-xl border-white/10 hover:border-white/50  */ }
-{/* <div className="min-w-1/5 text-center">
-</div> */}
-
-{/* {console.log('hey', w)} */ }
-{/* <span className=''>
-                </span> */}
-{/* <span className="w-full text-right">{w.lastCheckedAt}</span> */ }
-{/* <div className="flex flex-col text-white/80">
-<div className="flex justify-between items-center">
-    <span className='text-xl'>{w.url}</span>
-    {w.status === 'UP'
-        ? (<div className="text-green-400 text-sm flex items-center gap-2">
-        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-        Live
-        </div>
-        ) : w.status === 'DOWN'
-        ? (<div className="text-red-900 text-sm flex items-center gap-2">
-                <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-
-                DOWN
-            </div>
-            ) : (<span>
-
-                UNKNOWN
-            </span>)}
-
-</div>
-<span className="mb-2">
-    {w.responseTime}ms
-</span>
-<span>{w.errorCode}</span>
-<span>{w.errorMessage}</span>
-<span className="w-full text-right text-sm">Last checked: {formatTimeAgo(w.lastCheckedAt)}
-</span>
-</div> */}
-{/* </div> */ }
-{/* <div className="w-full min-h-1/2 border cursor-pointer rounded-tr-xl rounded-bl-xl opacity-30">
-</div>
-</div>
-<div className="w-full min-h-1/2 border cursor-pointer rounded-tr-xl rounded-bl-xl opacity-30">
-</div>
-<div className="w-full min-h-1/2 border cursor-pointer rounded-tr-xl rounded-bl-xl opacity-30">
-</div> */}
-{/* <div className="text-center">
-    <h1 className="text-4xl font-bold text-white mb-4">Welcome to PulseWatch</h1>
-    <p className="text-lg text-slate-400">Select a project to get started or create a new one.</p>
-</div> */}
-{/* <div className="w-full flex items-center justify-between pt-3 pl-2 pr-4">
-                <button className>Add Website</button>
-            </div> */}
