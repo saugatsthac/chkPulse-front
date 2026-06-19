@@ -4,7 +4,7 @@ export default function ({ avgResponseTime, totalMonitors, openIncidents, projec
     const stats = [
         {
             title: "MONITORS",
-            // value: totalMonitors,
+            value: totalMonitors,
         },
         {
             title: "OVERALL UPTIME",
@@ -13,28 +13,28 @@ export default function ({ avgResponseTime, totalMonitors, openIncidents, projec
         },
         {
             title: "AVG RESPONSE",
-            // value: `${Math.round(avgResponseTime)}ms`,
+            value: `${Math.round(avgResponseTime)}ms`,
             subtitle: "Across active monitors",
         },
         {
             title: "OPEN INCIDENTS",
-            // value: openIncidents,
+            value: openIncidents,
         },
     ];
 
     return (
         <div className="w-full flex flex-col gap-7 font-light">
             {stats.map((s) =>
-                <div className="min-w-1/5 aspect-square flex flex-col justify-between border border-white/10 rounded-2xl text-sm px-6 py-7 bg-[#111217]">
+                <div className="min-w-1 flex flex-col justify-between border border-white/10 rounded-2xl text-sm px-6 py-7 bg-[#111217]">
 
                     <span className="tracking-wide text-left opacity-80">
                         {s.title}
                     </span>
 
                     <div className="flex flex-col">
-                        {/* <span className="text-5xl font-bold leading-none">
-                            {value}
-                        </span> */}
+                        <span className="text-5xl font-bold leading-none">
+                            {s.value}
+                        </span>
 
                         {s.rightLabel && (
                             <span className="text-4xl leading-tight opacity-80">

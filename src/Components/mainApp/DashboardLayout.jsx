@@ -21,7 +21,7 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
 
     return (
         <div className="grow h-full min-h-0 flex flex-col items-start justify-start overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-900/10 scrollbar-gutter-stable
-        px-6 py-7 gap-6 font-light">
+        px-6 py-7 gap-7 font-light">
 
             <ProjectHeader
                 activeProjectData={activeProjectData}
