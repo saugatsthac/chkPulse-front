@@ -6,7 +6,7 @@ import useProjectMetrics from "../hooks/useProjectMetrics";
 import SidebarLayout from "../Components/mainApp/SidebarLayout";
 import DashboardLayout from "../Components/mainApp/DashboardLayout";
 import NewProject from "../Components/mainApp/SidebarLayoutForms/newProject";
-import AddWebsite from "../Components/mainApp/SidebarLayoutForms/AddWebsite";
+import AddWebsite from "../Components/mainApp/SidebarLayoutForms/addWebsite";
 import Modal1 from "../Components/Modal1";
 import EditProject from '../Components/mainApp/DashboardLayoutForms/EditProject'
 import NotificationSettings from '../Components/mainApp/DashboardLayoutForms/NotifySettings'
