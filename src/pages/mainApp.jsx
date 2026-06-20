@@ -45,6 +45,7 @@ export default function Main() {
     return (
         <div className="min-h-screen h-screen min-w-screen w-screen bg-[#0a0b0d] text-white flex overflow-hidden
         font-light text-sm">
+            {/* <div className="relative h-full w-15"> */}
 
             <SidebarLayout
                 projects={projects}
@@ -55,6 +56,7 @@ export default function Main() {
                 setModalType={setModalType}
                 setShowModal={setShowModal}
             />
+            {/* </div> */}
 
             {sidebarSelection === 'monitors' &&
                 <DashboardLayout

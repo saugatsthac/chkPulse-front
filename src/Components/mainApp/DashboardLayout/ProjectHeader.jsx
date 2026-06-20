@@ -9,14 +9,18 @@ export function ProjectHeader({ activeProjectData, setModalType, setShowModal })
         border border-white/10">
 
             <span className="text-lg flex items-center gap-3">
-                <span
-                    className="w-3 h-3 rounded-full inline-block"
-                    style={{ backgroundColor: activeProjectData?.color }}
-                />
-                <span className='text-5xl font-bold italic tracking-tight'>
+                <span className='border p-0.5 rounded-xl border-blue-900/20 px-2.5'>
+
+                    <span
+                        className="w-3 h-3 rounded-full inline-block"
+                        style={{ backgroundColor: activeProjectData?.color }}
+                    />
+                </span>
+                {/* italic */}
+                <span className='text-xl font-semibold fontsemibold  tracking-tight'>
                     {/* # */}
-                    {/* Namey */}
-                    {activeProjectData?.name}
+                    Namey
+                    {/* {activeProjectData?.name} */}
                 </span>
             </span>
         </div>

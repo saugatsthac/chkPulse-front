@@ -12,24 +12,28 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
     setSidebarSelection, setModalType }) {
     console.log('here', projects)
     return (
-        <div className="w-70 max-w-70 border-slate-800 pr-0 text-white/90 h-full flex flex-col gap-2 bg-blue-900/10 font-light">
-            <div className="flex flex-col items-start w-full p-4 pr-2.5 pb-0">
-                <div className='w-full flex h-auto gap-2 py-4 pl-3 justify-start'>
-                    <img src={monitor} alt='monitor' className='w-1/6' />
-                    <img src={name} alt='name' className='w-1/2' />
+        <div className="w-70 max-w-70 border-slate-800/30 text-white/90 h-full flex flex-col gap-7
+        bg-[#111217] font-light border-r py-7 pb-0">
+            <div className='w-full flex h-auto gap-2 px-4 justify-start'>
+                <img src={monitor} alt='monitor' className='w-1/6' />
+                <img src={name} alt='name' className='w-1/2' />
 
-                </div>
-                <button className={`flex gap-2 w-full px-3 py-2 pr-5 transition-all duration-500
+            </div>
+            {/* text-lg  */}
+            <div className="flex flex-col items-start w-full px-2">
+
+                <button className={`flex gap-2 w-full px-2 py-2 transition-all duration-500
                 ${sidebarSelection === 'monitors' ? 'bg-orange-900/30 rounded-lg' : ''}`}
                     onClick={() => {
                         setSidebarSelection('monitors')
                     }}>
-                    <MonitorIcon />
+                    <MonitorIcon fontSize='small' />
                     <span>
                         Monitors
                     </span>
                 </button>
-                <button className={`flex gap-2 w-full px-3 py-2 pr-5 transition-all duration-500`}
+               
+                {/* <button className={`flex gap-2 w-full px-3 py-2 pr-5 transition-all duration-500`}
                     onClick={() => {
                         setShowModal(true);
                         setModalType("addWebsite");
@@ -38,18 +42,18 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                 >
                     <AddBoxIcon />
                     Add Website
-                </button>
-                <button className={`flex gap-2 w-full px-3 py-2 pr-5 transition-all duration-500
+                </button> */}
+                <button className={`flex gap-2 w-full px-2 py-2 pr-5 transition-all duration-500 mt-2
                 ${sidebarSelection === 'incidents' ? 'bg-orange-900/30 rounded-lg' : ''}`}
                     onClick={() => {
                         setSidebarSelection('incidents')
                     }}>
-                    <NotificationsNoneIcon />
+                    <NotificationsNoneIcon fontSize='small' />
                     <span>
                         Incidents
                     </span>
                 </button>
-                <button className={`flex gap-2 w-full px-3 py-2 pr-5 transition-all duration-500
+                {/* <button className={`flex gap-2 w-full px-3 py-2 pr-5 transition-all duration-500
                 ${sidebarSelection === 'statusPages' ? 'bg-orange-900/30 rounded-lg' : ''}`}
                     onClick={() => {
                         setSidebarSelection('statusPages')
@@ -59,17 +63,28 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                         Status Pages
 
                     </span>
-                </button>
+                </button> */}
 
             </div>
+             <button className="font-light bg-none ml-auto cursor-pointer py-2 rounded-lg
+            flex w-fit px-4 hover:bg-white/10
+            transition-all duration-300 mt-1"
+                    onClick={() => {
+                        setShowModal(true);
+                        setModalType("createProject");
 
-            <div className="w-full grow flex flex-col items-start text-lg pr-0 pb-0 min-h-0 p-4">
+                    }}>
+                    + New Project
+                </button>
 
-                <h2 className="text-xs mb-1 pl-3">PROJECTS</h2>
-                <div className="
-            flex flex-col
+            <div className="w-full grow flex flex-col items-start 
+            min-h-0 pl-2 gap-1">
+
+                <h2 className="text-xs pl-1">PROJECTS</h2>
+                <div className="grow
+            flex flex-col pr-2
             w-full scrollbar-thin overflow-y-auto 
-            [scrollbar-gutter:stable] 
+            scrollbar-gutter-stable 
             scrollbar-track-transparent
             scrollbar-thumb-slate-800/50 scrollbar-thumb-rounded-lg gap-1
             hover:scrollbar-thumb-slate-800/60">
@@ -78,10 +93,10 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                         <div
                             key={p._id}
                             onClick={() => { setActiveProjectData(p) }}
-                            className={`flex gap1 w-full p-3 transition-all duration-300 flex-col cursor-pointer rounded-lg
+                            className={`flex gap1 w-full px-3 py-2 transition-all duration-300 flex-col cursor-pointer rounded-lg
                                 ${activeProjectData._id === p._id ? 'bg-white/10' : 'hover:bg-white/20'}`}
                         >
-                            <span className="text-lg flex items-center gap-2">
+                            <span className="flex items-center gap-2">
                                 <span
                                     className="w-2.5 h-2.5 rounded-full inline-block"
                                     style={{ backgroundColor: p.color }}
@@ -96,28 +111,22 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                         </div>
                     ))}
                 </div>
-                <button className="font-light bg-none
-            flex w-fit p-4 text-base
-            transition-all duration-300"
-                    onClick={() => {
-                        setShowModal(true);
-                        setModalType("createProject");
-
-                    }}>
-                    + New Project
-                </button>
                 {/* </div> */}
             </div >
-            <div className="border-t border-white/10 p-4 mt-auto">
+            {/* text-base */}
+
+
+
+            <div className="border-t border-white/10 py-3 px-4 gap-1 flex flex-col mt-auto">
                 <button className="font-light bg-none
-            flex text-lg mt-auto gap-2
+            flex text-lg mt-auto gap-2 items-center
             transition-all duration-300"
                     onClick={() => {
                         setShowModal(true);
                         setModalType("createProject");
 
                     }}>
-                    <SettingsIcon />
+                    <SettingsIcon fontSize='small' />
                     <span>
 
                         Settings
