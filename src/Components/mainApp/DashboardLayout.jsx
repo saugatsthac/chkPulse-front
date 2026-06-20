@@ -32,17 +32,28 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
 
             <div className='flex w-full gap-6 items-start'>
 
-                <div className='flex flex-col w-2/3 justify-start gap-3 bg-[#111217] px-6 py-7 rounded-2xl
+                <div className='flex flex-col min-w-2/3 justify-start gap-3 bg-[#111217] px-6 py-7 rounded-2xl
                 border border-white/10'>
-                    <div className="flex flex-col w-full items-end gap-3">
-                        <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
+                    <div className="flex flex-col w-full items-end gap-3" >
+                        <div className='flex w-full justify-end gap-2'>
+
+                            <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
                     bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
-                        >
-                            <RefreshIcon />
-                            <span className='font-ligh'>
-                                Refresh monitors
-                            </span>
-                        </button>
+                            >
+                                <RefreshIcon />
+                                <span className='font-ligh'>
+                                    Add monitor
+                                </span>
+                            </button>
+                            <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
+                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
+                            >
+                                <RefreshIcon />
+                                <span className='font-ligh'>
+                                    Refresh monitors
+                                </span>
+                            </button>
+                        </div>
                         <div className='flex gap-2 font-light'>
 
                             {filters.map(filter => (
@@ -54,9 +65,7 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                 />
                             ))}
                         </div>
-                        {/* <div className='flex'> */}
-                        {/* </div> */}
-                    </div>
+                    </div >
                     <div className='flex flex-col gap-3'>
                         {projectWebsites.map((w, index) => (
                             <MonitorRow
@@ -71,8 +80,15 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                 }} />
                         ))}
                     </div>
-                </div>
-                <div className='h-full grow  rounded-xl items-start'>
+                </div >
+                <div className=' grow flex flex-col justify-start items-start gap-7'>
+                    <span className='p-6 text-xl tracking-tight w-full justify-end flex text-right border border-white/10 rounded-2xl bg-[#111217]'>
+                        {activeProjectData?.name}<br />
+                        have shared among too.<br />
+                        have a share button to add usernames here.<br />
+                        notification buttons here too.
+                    </span>
+
                     <StatsCards
                         projectWebsites={projectWebsites}
                         avgResponseTime={avgResponseTime}
@@ -80,10 +96,27 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                         openIncidents={openIncidents}
                     />
                 </div>
-            </div>
+            </div >
 
         </div >)
 }
+{/* <div className="flex items-start gap-3 w-full"> */ }
+
+{/* <span className="text-lg flex items-center gap-3"> */ }
+{/* <span className='border rounded-xl border-blue-900/80 px-1.5 items-center'>
+
+        <span
+            className="w-2 h-2 rounded-full inline-block"
+            style={{ backgroundColor: activeProjectData?.color }}
+        />
+    </span> */}
+{/* italic */ }
+{/* # */ }
+{/* Namey */ }
+{/* </span> */ }
+{/* </div> */ }
+{/* <div className='flex'> */ }
+{/* </div> */ }
 {/* </div> */ }
 
 {/* <div className='flex flex-col justify-between items-end text-xl font-light gap-1 w-full'> */ }

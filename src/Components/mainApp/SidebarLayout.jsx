@@ -32,7 +32,7 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                         Monitors
                     </span>
                 </button>
-               
+
                 {/* <button className={`flex gap-2 w-full px-3 py-2 pr-5 transition-all duration-500`}
                     onClick={() => {
                         setShowModal(true);
@@ -66,21 +66,23 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                 </button> */}
 
             </div>
-             <button className="font-light bg-none ml-auto cursor-pointer py-2 rounded-lg
-            flex w-fit px-4 hover:bg-white/10
-            transition-all duration-300 mt-1"
-                    onClick={() => {
-                        setShowModal(true);
-                        setModalType("createProject");
-
-                    }}>
-                    + New Project
-                </button>
 
             <div className="w-full grow flex flex-col items-start 
             min-h-0 pl-2 gap-1">
+                <div className='flex w-full justify-between items-center'>
 
-                <h2 className="text-xs pl-1">PROJECTS</h2>
+                    <h2 className="text-xs pl-1">PROJECTS</h2>
+                    <button className="font-light bg-none ml-auto cursor-pointer py-2 rounded-lg
+            flex w-fit px-4 hover:bg-white/10
+            transition-all duration-300 mr-5"
+                        onClick={() => {
+                            setShowModal(true);
+                            setModalType("createProject");
+
+                        }}>
+                        + New Project
+                    </button>
+                </div>
                 <div className="grow
             flex flex-col pr-2
             w-full scrollbar-thin overflow-y-auto 
