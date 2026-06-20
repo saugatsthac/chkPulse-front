@@ -69,7 +69,7 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
 
             <div className="w-full grow flex flex-col items-start 
             min-h-0 pl-2 gap-1">
-                <div className='flex w-full justify-between items-center'>
+                <div className='flex w-full justify-between items-baseline'>
 
                     <h2 className="text-xs pl-1">PROJECTS</h2>
                     <button className="font-light bg-none ml-auto cursor-pointer py-2 rounded-lg

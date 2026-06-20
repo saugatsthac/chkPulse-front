@@ -14,13 +14,15 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
     const [filterCondition, setFilterCondition] = useState('UP')
     const filters = [
         { label: "All", value: "ALL" },
-        { label: "Up", value: "UP" },
-        { label: "Degraded", value: "DEGRADED" },
-        { label: "Down", value: "DOWN" }
+        { label: "Operational", value: "Operational" },
+        { label: 'Issues', value: "ISSUES" },
+        { label: 'Maintenance', value: "MAINTENANCE" }
+        // { label: "Degraded", value: "DEGRADED" },
+        // { label: "Down", value: "DOWN" },
     ];
 
     return (
-        <div className="grow h-full min-h-0 flex flex-col items-start justify-start overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-900/10 scrollbar-gutter-stable
+        <div className="grow h-full min-h-0 flex items-start justify-start overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-900/10 scrollbar-gutter-stable
         px-6 py-7 gap-6 font-light">
 
             {/* <ProjectHeader
@@ -28,75 +30,82 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                 setShowModal={setShowModal}
                 setModalType={setModalType}
             /> */}
+            <div className='flex flex-col w-2/3 gap-7'>
 
+                <div className='bg-[#111217] min-h-70 rounded-2xl border border-white/10 p-6'>
+                    Reponse Time Chart</div>
+                <div className='flex w-full gap-6 items-start'>
 
-            <div className='flex w-full gap-6 items-start'>
-
-                <div className='flex flex-col min-w-2/3 justify-start gap-3 bg-[#111217] px-6 py-7 rounded-2xl
+                    <div className='flex flex-col w-full justify-start gap-3 bg-[#111217] px-6 py-7 rounded-2xl
                 border border-white/10'>
-                    <div className="flex flex-col w-full items-end gap-3" >
-                        <div className='flex w-full justify-end gap-2'>
+                        <div className="flex flex-col w-full items-end gap-3" >
+                            <div className='flex w-full justify-end gap-2'>
 
-                            <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
+                                <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
                     bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
-                            >
-                                <RefreshIcon />
-                                <span className='font-ligh'>
-                                    Add monitor
-                                </span>
-                            </button>
-                            <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
+                                >
+                                    <RefreshIcon />
+                                    <span className='font-ligh'>
+                                        Add monitor
+                                    </span>
+                                </button>
+                                <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
                     bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
-                            >
-                                <RefreshIcon />
-                                <span className='font-ligh'>
-                                    Refresh monitors
-                                </span>
-                            </button>
-                        </div>
-                        <div className='flex gap-2 font-light'>
+                                >
+                                    <RefreshIcon />
+                                    <span className='font-ligh'>
+                                        Refresh monitors
+                                    </span>
+                                </button>
+                            </div>
+                            <div className='flex gap-2 font-light'>
 
-                            {filters.map(filter => (
-                                <StatusFilterButton
-                                    key={filter.value}
-                                    {...filter}
-                                    active={filterCondition === filter.value}
-                                    onClick={setFilterCondition}
-                                />
+                                {filters.map(filter => (
+                                    <StatusFilterButton
+                                        key={filter.value}
+                                        {...filter}
+                                        active={filterCondition === filter.value}
+                                        onClick={setFilterCondition}
+                                    />
+                                ))}
+                            </div>
+                        </div >
+                        <div className='flex flex-col gap-3'>
+                            {projectWebsites.map((w, index) => (
+                                <MonitorRow
+                                    key={w._id}
+                                    w={w}
+                                    index={index}
+                                    isLast={index === projectWebsites.length - 1}
+                                    onClick={() => {
+                                        setSelectedWebsite(w);
+                                        setModalType('websiteDetails')
+                                        setShowModal(true)
+                                    }} />
                             ))}
                         </div>
                     </div >
-                    <div className='flex flex-col gap-3'>
-                        {projectWebsites.map((w, index) => (
-                            <MonitorRow
-                                key={w._id}
-                                w={w}
-                                index={index}
-                                isLast={index === projectWebsites.length - 1}
-                                onClick={() => {
-                                    setSelectedWebsite(w);
-                                    setModalType('websiteDetails')
-                                    setShowModal(true)
-                                }} />
-                        ))}
-                    </div>
                 </div >
-                <div className=' grow flex flex-col justify-start items-start gap-7'>
-                    <span className='p-6 text-xl tracking-tight w-full justify-end flex text-right border border-white/10 rounded-2xl bg-[#111217]'>
-                        {activeProjectData?.name}<br />
-                        have shared among too.<br />
-                        have a share button to add usernames here.<br />
-                        notification buttons here too.
-                    </span>
+            </div>
+            <div className=' grow flex flex-col justify-start items-start gap-7'>
+                <span className='px-6 py-7 text-xl tracking-tight w-full justify-end flex text-right border border-white/10 rounded-2xl bg-[#111217]'>
+                    {activeProjectData?.name}<br />
+                    have shared among too.<br />
+                    have a share button to add usernames here.<br />
+                    notification buttons here too.
+                </span>
 
-                    <StatsCards
-                        projectWebsites={projectWebsites}
-                        avgResponseTime={avgResponseTime}
-                        totalMonitors={totalMonitors}
-                        openIncidents={openIncidents}
-                    />
+                <StatsCards
+                    projectWebsites={projectWebsites}
+                    avgResponseTime={avgResponseTime}
+                    totalMonitors={totalMonitors}
+                    openIncidents={openIncidents}
+                />
+
+                <div className='border border-white/10 w-full h-80 rounded-2xl bg-[#111217] p-6'>
+                Weekly Uptime Chart
                 </div>
-            </div >
+            </div>
 
         </div >)
 }

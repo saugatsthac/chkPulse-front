@@ -5,21 +5,38 @@ export function StatusFilterButton({
     onClick,
     // color
 }) {
+    // const styles = {
+    //     ALL: active
+    //         ? "bg-white/20 border-white/50"
+    //         : "border-white/20 hover:bg-white/10",
+    //     UP: active
+    //         ? "bg-green-500/20 border-green-500/50"
+    //         : "border-green-500/20 hover:bg-green-500/10",
+
+    //     DEGRADED: active
+    //         ? "bg-yellow-500/20 border-yellow-500/50"
+    //         : "border-yellow-500/20 hover:bg-yellow-500/10",
+
+    //     DOWN: active
+    //         ? "bg-red-500/20 border-red-500/50"
+    //         : "border-red-500/20 hover:bg-red-500/10"
+    // };
     const styles = {
         ALL: active
             ? "bg-white/20 border-white/50"
             : "border-white/20 hover:bg-white/10",
-        UP: active
+
+        Operational: active
             ? "bg-green-500/20 border-green-500/50"
             : "border-green-500/20 hover:bg-green-500/10",
 
-        DEGRADED: active
-            ? "bg-yellow-500/20 border-yellow-500/50"
-            : "border-yellow-500/20 hover:bg-yellow-500/10",
-
-        DOWN: active
+        ISSUES: active
             ? "bg-red-500/20 border-red-500/50"
-            : "border-red-500/20 hover:bg-red-500/10"
+            : "border-red-500/20 hover:bg-red-500/10",
+
+        MAINTENANCE: active
+            ? "bg-blue-500/20 border-blue-500/50"
+            : "border-blue-500/20 hover:bg-blue-500/10",
     };
     return (
         <button
