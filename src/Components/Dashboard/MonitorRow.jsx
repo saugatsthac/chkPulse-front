@@ -1,72 +1,67 @@
+import React from "react";
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import { CircleCheckBig } from 'lucide-react';
+import { CircleAlert } from 'lucide-react';
+import { Clock } from 'lucide-react';
+import getStatusSince from '../../utilis/statusSince';
 
-export default function ({ w, index, isLast, onClick }) {
-    function formatTimeAgo(timestamp) {
-        const now = Date.now();
-        const diff = now - timestamp;
+function MonitorRow({ w,
+    // index, isLast, 
+    setShowModal, setModalType, setSelectedWebsite }) {
 
-        const seconds = Math.floor(diff / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-
-        if (seconds < 60) return `${seconds}s ago`;
-        if (minutes < 60) return `${minutes}m ago`;
-        if (hours < 24) return `${hours}h ago`;
-        return `${days}d ago`;
-    }
-
-    function build30DayTimeline(website) {
-        const days = [];
-        console.log('build', website)
-        // Start by assuming every day has current status
-        for (let i = 0; i < 30; i++) {
-            days.push({
-                date: new Date(Date.now() - i * 86400000),
-                status: website.status,
-            });
+    const getStatusIcon = (status) => {
+        switch (status) {
+            case 'UP': return <CircleCheckBig className="w-4 h-4 text-green-400" />;
+            case 'DOWN': return <CircleAlert className="w-4 h-4 text-yellow-400" />;
+            case 'MAINTEINANCE': return <Clock className="w-4 h-4 text-blue-400" />;
         }
-
-        const changes = [...website.statusChanges]
-            .sort(
-                (a, b) =>
-                    new Date(b.changedAt) - new Date(a.changedAt)
-            );
-
-        for (const change of changes) {
-            const changeDate = new Date(change.changedAt);
-
-            for (const day of days) {
-                if (day.date < changeDate) {
-                    day.status = change.previousStatus;
-                }
-            }
-        }
-
-        return days.reverse();
-    }
-
-    function calculateUptimePercent(timeline) {
-        const upDays = timeline.filter(d => d.status === "UP").length;
-        return (upDays / timeline.length) * 100;
-    }
+    };
 
     return (
         <div
-            key={w._id}
+            // key={w._id}
             className={`w-full flex py-6 gap-2 overflow-hidden bg-gray-900/50 border rounded-2xl
-            p-5
+            p-5 justify-between
             cursor-pointer items-center text-lg
             transition-all duration-100 border-white/10`}
-            onClick={onClick}
+            onClick={() => {
+                setSelectedWebsite(w);
+                setModalType('websiteDetails')
+                setShowModal(true)
+            }}
+        // onClick={onClick}
+        // key={index}
         >
-            <div className={`h-full flex flex-col justify-between`}>
-                <div className="flex">
-                    <span className='text-base font-light'>
+            {console.log("Rendering:", w.url)}
+            <div className={`h-full flex flex-col justify-center gap-1`}>
+                <div className="flex gap-5 items-center">
+                    <span className='text-lg font-light'>
                         {w.url}
                     </span>
-                    <span>
+                    <span className='flex items-center gap-1'>
 
+                        <span>
+                            {getStatusIcon(w.status)}
+                            {/* <CheckCircleIcon fontSize='small' color='success' /> */}
+                        </span>
+                        <span className="text-sm text-gray-400 capitalize">{w.status}</span>
+                        <span className='text-sm flex gap-1 items-center text-gray-500'>
+                            <span>
+                                {w.statusSince
+                                    ? w.status === "UP"
+                                        ? "for"
+                                        : "for"
+                                    : ""}
+                            </span>
+                            <span>
+                                {w.statusSince
+                                    ? getStatusSince(new Date(w.statusSince)) :
+                                    ''}
+                            </span>
+                        </span>
                     </span>
                 </div>
                 <span className="min-w-1/12 text-sm font-light text-gray-500 flex items-center justify-start gap-1" >
@@ -75,23 +70,37 @@ export default function ({ w, index, isLast, onClick }) {
                         {w.responseTime} ms
                     </span>
                 </span>
+                {/* <div className='text-sm text-gray-500 flex gap-1'>
+                    <span>
+                        {w.statusSince
+                            ? w.status === "UP"
+                                ? "UP since"
+                                : "DOWN since"
+                            : ""}
+
+                    </span>
+                    {w.statusSince
+                        ? getStatusSince(new Date(w.statusSince)) :
+                        ''}
+                </div> */}
             </div>
-            <div className="min-w-3/12 text-center flex gap-1 justify-center items-center">
+            {/* <div className="text-center flex gap-1 justify-center items-center">
+                <div className="min-w-2/12 text-center"> {formatTimeAgo(w.lastCheckedAt)}
+                </div>
                 {w.last14Checks?.map((check, index) => (
                     <span
                         key={index}
-                        className={`w - 1 h - 6 rounded - full inline - block ${check.status === "UP"
+                        className={`w-1 h-6 rounded-full inline-block ${check.status === "UP"
                             ? "bg-green-500"
                             : "bg-red-500"
                             } `}
                     />
                 ))}
-            </div>
+            </div> */}
         </div >
     )
 }
-{/* <div className="min-w-2/12 text-center"> {formatTimeAgo(w.lastCheckedAt)}
-</div> */}
+export default React.memo(MonitorRow)
 {/* <span className='w-fit ml-auto'>
                     {w.status === 'UP'
                         ? (<div className="text-green-400 text-sm flex items-center gap-2 animate-pulse

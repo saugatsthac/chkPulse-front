@@ -14,10 +14,10 @@ export default function useProjectWebsites(projectId) {
                 `/projects/${projectId}/websites`
             );
 
-            const websitesWithHistory = data.websites.map((website) => ({
+            const websitesWithHistory = data.map((website) => ({
                 ...website,
-                statusChanges:
-                    data.statusChanged?.[website._id] || []
+                // statusChanges:
+                //     data.statusChanged?.[website._id] || []
             }));
 
             setProjectWebsites((prev) => ({

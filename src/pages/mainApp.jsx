@@ -3,15 +3,20 @@ import { io } from "socket.io-client";
 import useProjects from "../hooks/useProjects";
 import useProjectWebsites from "../hooks/useProjectWebsites";
 import useProjectMetrics from "../hooks/useProjectMetrics";
-import SidebarLayout from "../Components/mainApp/SidebarLayout";
-import DashboardLayout from "../Components/mainApp/DashboardLayout";
-import NewProject from "../Components/mainApp/SidebarLayoutForms/newProject";
-import AddWebsite from "../Components/mainApp/SidebarLayoutForms/addWebsite";
+import SidebarLayout from "./mainApp/SidebarLayout";
+import DashboardLayout from "./mainApp/DashboardLayout";
+import NewProject from "../Components/forms/newProject";
+import AddWebsite from "../Components/forms/addWebsite";
 import Modal1 from "../Components/Modal1";
-import EditProject from '../Components/mainApp/DashboardLayoutForms/EditProject'
-import NotificationSettings from '../Components/mainApp/DashboardLayoutForms/NotifySettings'
-import DeleteProject from '../Components/mainApp/DashboardLayoutForms/DeleteProject'
-import WebsiteDetails from "../Components/mainApp/WebsiteDetails";
+import EditProject from '../Components/forms/EditProject'
+import NotificationSettings from '../Components/forms/NotifySettings'
+import DeleteProject from '../Components/forms/DeleteProject'
+import WebsiteDetails from "../Components/WebsiteDetails";
+import NotificationsLayout from "./mainApp/NotificationsLayout";
+import AddNotificationChannel from "../Components/forms/AddNotificationChannel";
+import AddEmailChannel from "../Components/forms/AddEmailChannel";
+import AddDiscordChannel from "../Components/forms/AddDiscordChannel";
+import BillingLayout from "./mainApp/Billing";
 
 export default function Main() {
     const {
@@ -70,7 +75,14 @@ export default function Main() {
                     setShowModal={setShowModal}
                     setModalType={setModalType}
                 />}
+            {sidebarSelection === 'notifications' &&
+                <NotificationsLayout
+                    setShowModal={setShowModal}
+                    setModalType={setModalType} />}
 
+            {sidebarSelection === "billing" &&
+                <BillingLayout />
+            }
 
             {showModal &&
                 <Modal1 onClose={onClose}>
@@ -116,6 +128,23 @@ export default function Main() {
                         // onClose={onClose}
                         />
                     }
+                    {modalType === "addNotificationChannel" && (
+                        <AddNotificationChannel
+                            setModalType={setModalType}
+                        />
+                    )}
+
+                    {modalType === "addEmailChannel" && (
+                        <AddEmailChannel
+                            onClose={onClose}
+                        />
+                    )}
+
+                    {modalType === "addDiscordChannel" && (
+                        <AddDiscordChannel
+                            onClose={onClose}
+                        />
+                    )}
 
 
 
@@ -124,3 +153,14 @@ export default function Main() {
 
         </div>);
 }
+// <DashboardLayout
+//     activeProjectData={activeProjectData}
+//     projectWebsites={projectWebsites || []}
+//     sidebarSelection={sidebarSelection}
+//     setSelectedWebsite={setSelectedWebsite}
+//     avgResponseTime={avgResponseTime}
+//     totalMonitors={totalMonitors}
+//     openIncidents={openIncidents}
+//     setShowModal={setShowModal}
+//     setModalType={setModalType}
+// />}
