@@ -47,7 +47,7 @@ export default function ({ avgResponseTime, totalMonitors, openIncidents, projec
                     </span>
 
                     <div className={`flex flex-col ${s.class}`}>
-                        <span className="text-5xl font-bold leading-none">
+                        <span className="text-5xl font-bold leading-none tracking-tighter">
                             {s.value}
                         </span>
 
