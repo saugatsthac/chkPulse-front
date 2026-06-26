@@ -6,12 +6,14 @@ import MonitorRow from '../../Components/Dashboard/MonitorRow';
 import { StatusFilterButton } from '../../Components/Buttons/StatusFilterButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AddIcon from '@mui/icons-material/Add';
+import ResponseTimeChart from '../../Components/Dashboard/ResponseTimeChart';
+import WeeklyUptimeChart from '../../Components/Dashboard/WeeklyTimeChart';
 
 export default function DashboardLayout({ setShowModal, setModalType, activeProjectData, projectWebsites, sidebarSelection,
     avgResponseTime, totalMonitors, openIncidents, setSelectedWebsite
 }) {
 
-    const [filterCondition, setFilterCondition] = useState('UP')
+    const [filterCondition, setFilterCondition] = useState('ALL')
     const filters = [
         { label: "All", value: "ALL" },
         { label: "Operational", value: "Operational" },
@@ -26,40 +28,50 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
             {projectWebsites.length > 0 ?
                 <div className='flex flex-col w-2/3 gap-7'>
 
-                    <div className='bg-[#111217] min-h-70 rounded-2xl border border-white/10 p-6'>
-                        Reponse Time Chart</div>
+                    <div className='bg-[#111217] min-h-70 rounded-2xl border border-white/10 p-6 py-7 text-base flex flex-col gap-7'>
+                        <span>
+                            Reponse Time Chart
+                        </span>
+                        <div className='h-64'>
+                            <ResponseTimeChart />
+                        </div>
+                    </div>
                     <div className='flex w-full gap-6 items-start'>
 
                         <div className='flex flex-col w-full justify-start gap-3 bg-[#111217] px-6 py-7 rounded-2xl
                 border border-white/10'>
                             <div className="flex flex-col w-full items-end gap-3">
-                                <div className='flex w-full justify-between items-center'>
-                                    <div className=''>Monitors</div>
+                                <div className='flex w-full justify-between items-end'>
+                                    <div className='text-base'>Monitors</div>
 
                                     <div className='flex gap-3 items-center'>
-                                        <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
-                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
+                                        {/* rounded-lg px-3 py-1 w-fit flex items-center gap-2
+                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm */}
+                                        <button className="rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-start gap-2
+                    "
                                             onClick={() => {
                                                 setShowModal(true)
                                                 setModalType('addWebsite')
                                             }}
                                         >
                                             <AddIcon />
-                                            <span className='font-ligh'>
+                                            <span className='font-light text-base'>
                                                 Add monitor
                                             </span>
                                         </button>
-                                        <button className="rounded-lg px-3 py-1 w-fit flex items-center gap-2
-                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
+                                        {/* rounded-lg px-3 py-1 w-fit flex items-center gap-2
+                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm */}
+                                        <button className="rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-center gap-2
+                    "
                                         >
                                             <RefreshIcon />
-                                            <span className='font-ligh'>
+                                            <span className='font-ligh text-base'>
                                                 Refresh monitors
                                             </span>
                                         </button>
                                     </div>
                                 </div>
-                                <div className='flex gap-2 font-light'>
+                                <div className='flex gap-2 font-light text-base'>
 
                                     {filters.map(filter => (
                                         <StatusFilterButton
@@ -144,8 +156,13 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                     />}
 
                 {projectWebsites.length > 0 &&
-                    <div className='border border-white/10 w-full h-80 rounded-2xl bg-[#111217] p-6'>
-                        Weekly Uptime Chart
+                    <div className='border border-white/10 w-full h-80 rounded-2xl bg-[#111217] p-6 gap-7 flex flex-col'>
+                        <span>
+                            Weekly Uptime Chart
+                        </span>
+                        <div className='h-64'>
+                            <ResponseTimeChart />
+                        </div>
                     </div>}
             </div>
 

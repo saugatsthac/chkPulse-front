@@ -12,6 +12,7 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 // import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 // import SettingsIcon from "@mui/icons-material/Settings";
+import logout from "../../utilis/logout"
 
 export default function SidebarLayout({ activeProject, projects, activeProjectData, setActiveProjectData, setShowModal, sidebarSelection,
     setSidebarSelection, setModalType }) {

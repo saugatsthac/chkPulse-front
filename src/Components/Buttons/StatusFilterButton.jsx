@@ -25,7 +25,7 @@ export function StatusFilterButton({
         <button
             onClick={() => onClick(value)}
             className={`
-                px-4 rounded-xl border py-1 text-sm
+                px-4 rounded-xl border py-1 text-base
                 transition-all duration-200
                 ${styles[value]}
             `}
