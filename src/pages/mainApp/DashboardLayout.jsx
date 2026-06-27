@@ -101,11 +101,13 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                 :
                 <div className='flex flex-col gap-6 rounded-2xl py-6 px-6 border-white/10 w-2/3 border bg-[#111217]
                 text-bas'>
-                    <span className='tracking-wid'>No monitors to show. Create a project or add a monitor to your project.</span>
+                    <span className='tracking-wid text-base'>No monitors to show. Create a project or add a monitor to your project.</span>
                     <div className='flex gap-3 w-full'>
 
-                        {!activeProjectData && <button className="rounded-lg px-3 py-1 pr-5 w-fit flex items-center gap-2
-                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
+                        {/* rounded-lg px-3 py-1 pr-5 w-fit flex items-center gap-2
+                        bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm */}
+                        {!activeProjectData && <button className="rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-start gap-2
+                    "
                             onClick={() => {
                                 setModalType('addWebsite')
                                 setShowModal(true)
@@ -116,8 +118,10 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                 New project
                             </span>
                         </button>}
-                        <button className="rounded-lg px-3 py-1 pr-5 w-fit flex items-center gap-2
-                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm"
+                        {/* rounded-lg px-3 py-1 pr-5 w-fit flex items-center gap-2
+                    bg-slate-800/40 hover:bg-slate-800 cursor-pointer text-sm */}
+                        <button className="rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-start gap-2
+                    "
                             onClick={() => {
                                 setModalType('addWebsite')
                                 setShowModal(true)
@@ -156,12 +160,12 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                     />}
 
                 {projectWebsites.length > 0 &&
-                    <div className='border border-white/10 w-full h-80 rounded-2xl bg-[#111217] p-6 gap-7 flex flex-col'>
+                    <div className='border border-white/10 w-full h-70 rounded-2xl bg-[#111217] p-6 py-7 gap-7 flex flex-col'>
                         <span>
                             Weekly Uptime Chart
                         </span>
-                        <div className='h-64'>
-                            <ResponseTimeChart />
+                        <div className='h-full'>
+                            <WeeklyUptimeChart />
                         </div>
                     </div>}
             </div>

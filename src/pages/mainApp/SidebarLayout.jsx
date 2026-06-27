@@ -12,10 +12,20 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 // import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 // import SettingsIcon from "@mui/icons-material/Settings";
-import logout from "../../utilis/logout"
+// import logout from "../../utilis/logout"
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from "react-router-dom";
+
 
 export default function SidebarLayout({ activeProject, projects, activeProjectData, setActiveProjectData, setShowModal, sidebarSelection,
     setSidebarSelection, setModalType }) {
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+    };
+
     return (
         <div className="min-w-80 max-w-80 border-slate-800/30 text-white/90 h-full flex flex-col gap-7
         bg-[#111217] font-light border-r py-7 pb-0">
@@ -114,19 +124,28 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
             </div> */}
             {sidebarSelection === 'monitors' &&
                 <div className="w-full grow flex flex-col items-start 
-            min-h-0 pl-2 gap-1">
-                    <div className='flex w-full justify-between items-baseline'>
+            min-h-0 pl-2 gap-2">
+                    <div className='flex w-full justify-between items-center'>
 
-                        <h2 className="text-xs pl-1">PROJECTS</h2>
-                        <button className="font-light bg-none ml-auto cursor-pointer py-2 rounded-lg
+                        {/* font-light bg-none ml-auto cursor-pointer py-2 rounded-lg
             flex w-fit px-4 hover:bg-white/10
-            transition-all duration-300 mr-5"
+            transition-all duration-300 mr-5 */}
+                        <h2 className="text-xs pl-1 text-white/60">PROJECTS</h2>
+                        <button className="
+                        rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-start gap-2 
+                        mr-2 text-base
+            "
                             onClick={() => {
                                 setShowModal(true);
                                 setModalType("createProject");
 
                             }}>
-                            + New Project
+                            <AddIcon />
+                            {/* + */}
+                            <span className='font-light text-base'>
+
+                                Add project
+                            </span>
                         </button>
                     </div>
                     <div className="grow
@@ -173,6 +192,14 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
 
                     }}>
                     Rajiv
+                </button>
+                <button className="font-light bg-none
+            flex w-fit text-lg
+            transition-all duration-300"
+                    onClick={() => {
+                        logout()
+                    }}>
+                    Logout
                 </button>
 
             </div>

@@ -125,7 +125,10 @@ export default function Signup() {
     };
     return (
         <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center px-6">
-
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+                <div className="absolute top-[-200px] left-[-150px] w-[500px] h-[500px] bg-orange-500/20 blur-[180px]" />
+                <div className="absolute bottom-[-200px] right-[-150px] w-[500px] h-[500px] bg-orange-600/10 blur-[180px]" />
+            </div>
             <div className="w-full max-w-md">
 
                 {/* Logo */}

@@ -11,10 +11,10 @@ export default function LandingPage() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-[#0B0F19] text-white overflow-hidden max-w-screen">
+        <div className="relative min-h-screen bg-[#0B0F19] text-white overflow-x-hidden overflow-y-auto">
 
             {/* Background Glow */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
                 <div className="absolute top-[-200px] left-[-150px] w-[500px] h-[500px] bg-orange-500/20 blur-[180px]" />
                 <div className="absolute bottom-[-200px] right-[-150px] w-[500px] h-[500px] bg-orange-600/10 blur-[180px]" />
             </div>
