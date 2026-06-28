@@ -214,11 +214,18 @@ export default function Login() {
 
                     <div className="flex justify-between mt-5 text-sm">
 
-                        <button
+                        {/* <button
                             className="text-slate-400 hover:text-white transition"
                         >
                             Forgot password?
-                        </button>
+                        </button> */}
+
+                        <Link
+                            to="/forgot-password"
+                            className="text-slate-400 hover:text-white transition"
+                        >
+                            Forgot password?
+                        </Link>
 
                         <Link
                             to="/signup"
