@@ -114,10 +114,15 @@ export default function Login() {
                 email,
                 password,
             });
-
+            console.log(data);
             if (data.token) {
                 localStorage.setItem("token", data.token);
-                navigate("/dashboard");
+                if (data.user.isVerified) {
+                    navigate("/dashboard");
+                } else {
+                    navigate("/verify-email");
+                }
+                // navigate("/dashboard");
             } else {
                 setError(data.error || "Invalid credentials");
             }

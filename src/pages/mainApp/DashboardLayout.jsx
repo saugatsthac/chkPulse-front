@@ -21,6 +21,8 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
         { label: 'Maintenance', value: "MAINTENANCE" }
     ];
 
+    const [showOptions, setShowOptions] = useState(null)
+
     return (
         <div className="grow h-full min-h-0 flex items-start justify-start overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-900/10 scrollbar-gutter-stable
         px-6 py-7 gap-6 font-light">
@@ -92,7 +94,9 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                         // isLast={index === projectWebsites.length - 1}
                                         setSelectedWebsite={setSelectedWebsite}
                                         setShowModal={setShowModal}
-                                        setModalType={setModalType} />
+                                        setModalType={setModalType} 
+                                        showOptions={showOptions}
+                                        setShowOptions={setShowOptions}/>
                                 ))}
                             </div>
                         </div >

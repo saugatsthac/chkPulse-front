@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import VerifyEmail from "./pages/VerifyEmail";
+import VerifyEmailNotice from "./pages/VerifyEmailNotice";
 
 export default function App() {
   return (
@@ -15,6 +17,15 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/verify-email"
+          element={<VerifyEmailNotice />}
+        />
+        <Route
+          path="/verify-email/:token"
+          element={<VerifyEmail />}
+        />
+
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
           path="/reset-password/:token"

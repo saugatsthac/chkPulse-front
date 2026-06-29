@@ -19,6 +19,7 @@ const sampleData = [
     { day: "Sun", uptime: 100.0 },
 ];
 
+import { CustomTooltip } from "./CustomTooltip";
 export default function WeeklyUptimeChart({
     data = sampleData,
 }) {
@@ -55,18 +56,21 @@ export default function WeeklyUptimeChart({
                 />
 
                 <Tooltip
+                    cursor={false}
                     formatter={(value) => [`${value}%`, "Uptime"]}
-                    contentStyle={{
-                        background: "#111217",
-                        border: "1px solid rgba(255,255,255,.1)",
-                        borderRadius: "12px",
-                    }}
+                    content={<CustomTooltip />}
+                //     contentStyle={{
+                //         background: "#111217",
+                //         border: "1px solid rgba(255,255,255,.1)",
+                //         borderRadius: "12px",
+                // }}
                 />
 
                 <Bar
                     dataKey="uptime"
                     radius={[6, 6, 0, 0]}
                     barSize={24}
+                    activeBar={false}
                 >
                     {data.map((entry, index) => (
                         <Cell

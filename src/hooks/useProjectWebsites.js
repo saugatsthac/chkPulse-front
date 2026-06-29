@@ -44,7 +44,7 @@ export default function useProjectWebsites(projectId) {
                 token: localStorage.getItem("token"),
             },
         });
-        
+
         socket.on("websiteUpdate", (data) => {
             setProjectWebsites((prev) => {
                 const websites = prev[data.projectId] || [];
@@ -66,5 +66,6 @@ export default function useProjectWebsites(projectId) {
     return {
         projectWebsites:
             projectWebsites[projectId] || [],
+        setProjectWebsites
     };
 }

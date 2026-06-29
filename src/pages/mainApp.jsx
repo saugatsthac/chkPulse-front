@@ -17,6 +17,7 @@ import AddNotificationChannel from "../Components/forms/AddNotificationChannel";
 import AddEmailChannel from "../Components/forms/AddEmailChannel";
 import AddDiscordChannel from "../Components/forms/AddDiscordChannel";
 import BillingLayout from "./mainApp/Billing";
+import DeleteMonitorModal from "../Components/forms/DeleteWebsite";
 
 export default function Main() {
     const {
@@ -26,7 +27,7 @@ export default function Main() {
         setActiveProjectData,
     } = useProjects();
 
-    const { projectWebsites
+    const { projectWebsites, setProjectWebsites
     } = useProjectWebsites(activeProjectData?._id);
 
     const {
@@ -38,6 +39,9 @@ export default function Main() {
     const [sidebarSelection, setSidebarSelection] = useState('monitors')
     const [selectedWebsite, setSelectedWebsite] = useState(null);
 
+    useEffect(() => (
+        console.log(selectedWebsite)
+    ), [selectedWebsite])
 
     const [modalType, setModalType] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -144,6 +148,12 @@ export default function Main() {
                         <AddDiscordChannel
                             onClose={onClose}
                         />
+                    )}
+                    {modalType === 'deleteWebsite' && (
+                        <DeleteMonitorModal
+                            selectedWebsite={selectedWebsite}
+                            setProjectWebsites={setProjectWebsites}
+                            onCancel={onClose} />
                     )}
 
 

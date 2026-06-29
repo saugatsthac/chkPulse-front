@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -7,10 +8,11 @@ import { CircleCheckBig } from 'lucide-react';
 import { CircleAlert } from 'lucide-react';
 import { Clock } from 'lucide-react';
 import getStatusSince from '../../utilis/statusSince';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 function MonitorRow({ w,
     // index, isLast, 
-    setShowModal, setModalType, setSelectedWebsite }) {
+    setShowModal, setModalType, setSelectedWebsite, showOptions, setShowOptions }) {
 
     const getStatusIcon = (status) => {
         switch (status) {
@@ -20,10 +22,11 @@ function MonitorRow({ w,
         }
     };
 
+
     return (
         <div
             // key={w._id}
-            className={`w-full flex py-6 gap-2 overflow-hidden bg-gray-900/50 border rounded-2xl
+            className={`w-full flex py-6 gap-2 bg-gray-900/50 border rounded-2xl
             p-5 justify-between
             cursor-pointer items-center text-lg
             transition-all duration-100 border-white/10`}
@@ -36,7 +39,7 @@ function MonitorRow({ w,
         // key={index}
         >
             {console.log("Rendering:", w.url)}
-            <div className={`h-full flex flex-col justify-center gap-1`}>
+            <div className={`h-full flex flex-col justify-center gap-1 w-full`}>
                 <div className="flex gap-5 items-center">
                     <span className='text-lg font-light'>
                         {w.url}
@@ -63,6 +66,28 @@ function MonitorRow({ w,
                             </span>
                         </span>
                     </span>
+                    <div className="relative ml-auto">
+
+                        <button className="">
+                            <MoreVertIcon onClick={(e) => {
+                                e.stopPropagation()
+                                setShowOptions(
+                                    showOptions === w._id ? null : w._id
+                                );
+                            }} />
+                        </button>
+                        {showOptions === w._id &&
+                            <div className="absolute right-6 top-0 border rounded-2xl">
+                                <button className="px-3 py-2 text-left">Edit</button>
+                                <button className="px-3 py-2 text-left"
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        setSelectedWebsite(w)
+                                        setModalType('deleteWebsite')
+                                        setShowModal(true)
+                                    }}>Delete</button>
+                            </div>}
+                    </div>
                 </div>
                 <span className="min-w-1/12 text-sm font-light text-gray-500 flex items-center justify-start gap-1" >
                     <QueryBuilderIcon fontSize='8' />
