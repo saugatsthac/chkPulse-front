@@ -53,20 +53,20 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                 >
                     <AddIcon />
                     <span className='font-light text-'>
-                        Add Monitor
+                        Add Website
                     </span>
                 </button>
 
             </div>
 
-            {projectWebsites.length > 0 &&
-                <StatsCards
-                    projectWebsites={projectWebsites}
-                    avgResponseTime={avgResponseTime}
-                    totalMonitors={totalMonitors}
-                    openIncidents={openIncidents}
-                />
-            }
+            {/* {projectWebsites.length > 0 && */}
+            <StatsCards
+                projectWebsites={projectWebsites}
+                avgResponseTime={avgResponseTime}
+                totalMonitors={totalMonitors}
+                openIncidents={openIncidents}
+            />
+            {/* } */}
 
             {projectWebsites.length !== 0 ? <div className='flex gap-6 w-full'>
 
@@ -212,7 +212,7 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                     />
 
                     <div className="mt-5 text-xl">
-                        No monitors
+                        No websites
                     </div>
 
                     {/* Add an email or Discord webhook to receive alerts. */}
@@ -228,7 +228,7 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                     // }}
                     >
                         <AddIcon />
-                        Add Channel
+                        Add Website
                     </button>
 
                     {/* </div> */}
