@@ -9,6 +9,9 @@ import { CircleAlert } from 'lucide-react';
 import { Clock } from 'lucide-react';
 import getStatusSince from '../../utilis/statusSince';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Button } from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import DropdownItem from "../Buttons/DropdownItem";
 
 function MonitorRow({ w,
     // index, isLast, 
@@ -25,7 +28,6 @@ function MonitorRow({ w,
 
     return (
         <div
-            // key={w._id}
             className={`w-full flex py-6 gap-2 bg-gray-900/50 border rounded-2xl
             p-5 justify-between
             cursor-pointer items-center text-lg
@@ -35,8 +37,6 @@ function MonitorRow({ w,
                 setModalType('websiteDetails')
                 setShowModal(true)
             }}
-        // onClick={onClick}
-        // key={index}
         >
             {console.log("Rendering:", w.url)}
             <div className={`h-full flex flex-col justify-center gap-1 w-full`}>
@@ -48,7 +48,6 @@ function MonitorRow({ w,
 
                         <span>
                             {getStatusIcon(w.status)}
-                            {/* <CheckCircleIcon fontSize='small' color='success' /> */}
                         </span>
                         <span className="text-sm text-gray-400 capitalize">{w.status}</span>
                         <span className='text-sm flex gap-1 items-center text-gray-500'>
@@ -66,28 +65,39 @@ function MonitorRow({ w,
                             </span>
                         </span>
                     </span>
-                    <div className="relative ml-auto">
 
-                        <button className="">
-                            <MoreVertIcon onClick={(e) => {
-                                e.stopPropagation()
-                                setShowOptions(
-                                    showOptions === w._id ? null : w._id
-                                );
-                            }} />
-                        </button>
-                        {showOptions === w._id &&
-                            <div className="absolute right-6 top-0 border rounded-2xl">
-                                <button className="px-3 py-2 text-left">Edit</button>
-                                <button className="px-3 py-2 text-left"
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                        setSelectedWebsite(w)
-                                        setModalType('deleteWebsite')
-                                        setShowModal(true)
-                                    }}>Delete</button>
-                            </div>}
+                    <div
+                        className="relative ml-auto"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <Menu>
+                            <MenuButton
+                                className="flex items-center justify-center p-1 rounded-lg hover:bg-white/5 transition-colors outline-none">
+                                <MoreVertIcon />
+                            </MenuButton>
+
+                            <MenuItems
+                                anchor="bottom end"
+                                className="mt-2 w-44 origin-top-right rounded-xl border border-white/10 bg-[#0f1117] shadow-[0_10px_30px_rgba(0,0,0,0.45)]
+                backdrop-blur-xl p-1 focus:outline-none z-50">
+
+                                <DropdownItem onClick={() => { }}>
+                                    Edit
+                                </DropdownItem >
+                                <DropdownItem onClick={() => {
+                                    setSelectedWebsite(w);
+                                    setModalType("deleteWebsite");
+                                    setShowModal(true);
+
+                                }} danger>
+                                    Delete
+                                </DropdownItem >
+
+                            </MenuItems>
+
+                        </Menu>
                     </div>
+
                 </div>
                 <span className="min-w-1/12 text-sm font-light text-gray-500 flex items-center justify-start gap-1" >
                     <QueryBuilderIcon fontSize='8' />
@@ -95,37 +105,142 @@ function MonitorRow({ w,
                         {w.responseTime} ms
                     </span>
                 </span>
-                {/* <div className='text-sm text-gray-500 flex gap-1'>
-                    <span>
-                        {w.statusSince
-                            ? w.status === "UP"
-                                ? "UP since"
-                                : "DOWN since"
-                            : ""}
-
-                    </span>
-                    {w.statusSince
-                        ? getStatusSince(new Date(w.statusSince)) :
-                        ''}
-                </div> */}
             </div>
-            {/* <div className="text-center flex gap-1 justify-center items-center">
-                <div className="min-w-2/12 text-center"> {formatTimeAgo(w.lastCheckedAt)}
-                </div>
-                {w.last14Checks?.map((check, index) => (
-                    <span
-                        key={index}
-                        className={`w-1 h-6 rounded-full inline-block ${check.status === "UP"
-                            ? "bg-green-500"
-                            : "bg-red-500"
-                            } `}
-                    />
-                ))}
-            </div> */}
         </div >
     )
 }
 export default React.memo(MonitorRow)
+{/* <div className="relative ml-auto"
+                    > */}
+{/* </div> */ }
+// key={w._id}
+// onClick={onClick}
+// key={index}
+{/* <CheckCircleIcon fontSize='small' color='success' /> */ }
+{/* <button className=""> */ }
+{/* <Button> */ }
+{/* absolute right-6 top-0 border rounded-2xl */ }
+{/* absolute right-0 top-8
+w-40
+bg-[#111217]
+border border-white/10
+rounded-xl
+shadow-2xl
+overflow-hidden
+z-50 */}
+{/* <Button className="">
+
+    <MoreVertIcon onClick={(e) => {
+        e.stopPropagation()
+        setShowOptions(
+            showOptions === w._id ? null : w._id
+        );
+    }} />
+</Button> */}
+
+{/* {showOptions === w._id && */ }
+{/* <DropdownItem onClick={() => { }}> */ }
+{/* <MenuItem>
+        {({ focus }) => (
+            <button
+                className={`
+w-full rounded-lg px-3 py-2
+text-left text-sm
+transition-colors
+${focus
+                        ? "bg-white/5 text-white"
+                        : "text-gray-300"
+                    }
+`}
+            >
+                Edit
+            </button>
+        )}
+    </MenuItem> */}
+
+{/* <MenuItem>
+        {({ focus }) => (
+            <button
+                onClick={() => {
+                    setSelectedWebsite(w);
+                    setModalType("deleteWebsite");
+                    setShowModal(true);
+                }}
+                className={`
+w-full rounded-lg px-3 py-2
+text-left text-sm
+transition-colors
+${focus
+                        ? "bg-red-500/10 text-red-300"
+                        : "text-red-400"
+                    }
+`}
+            >
+                Delete
+            </button>
+        )}
+    </MenuItem> */}
+{/* } */ }
+//                         <div className="absolute right-0 top-8
+// w-44
+// rounded-xl
+// border border-white/10
+// bg-[#0f1117]
+// backdrop-blur-xl
+// shadow-[0_10px_30px_rgba(0,0,0,0.45)]
+// overflow-hidden
+// z-50
+//                         ">
+//                             <button className="
+//                               w-full
+//             px-4 py-3
+//             text-left text-sm
+//             text-gray-300
+//             hover:bg-white/5
+//             transition-colors">Edit</button>
+//                             <button className="
+//                               w-full
+//                               px-4 py-3
+//             text-left text-sm
+//             text-red-400
+//             hover:bg-red-500/10
+//             transition-colors
+//                             "
+//                                 onClick={(e) => {
+//                                     e.stopPropagation()
+//                                     setSelectedWebsite(w)
+//                                     setModalType('deleteWebsite')
+//                                     setShowModal(true)
+//                                 }}>Delete</button>
+//                         </div>
+{/* px-3 py-2 text-left */ }
+{/* px-3 py-2 text-left */ }
+{/* <div className='text-sm text-gray-500 flex gap-1'>
+<span>
+{w.statusSince
+    ? w.status === "UP"
+        ? "UP since"
+        : "DOWN since"
+    : ""}
+
+</span>
+{w.statusSince
+? getStatusSince(new Date(w.statusSince)) :
+''}
+</div> */}
+{/* <div className="text-center flex gap-1 justify-center items-center">
+<div className="min-w-2/12 text-center"> {formatTimeAgo(w.lastCheckedAt)}
+</div>
+{w.last14Checks?.map((check, index) => (
+<span
+key={index}
+className={`w-1 h-6 rounded-full inline-block ${check.status === "UP"
+    ? "bg-green-500"
+    : "bg-red-500"
+    } `}
+/>
+))}
+</div> */}
 {/* <span className='w-fit ml-auto'>
                     {w.status === 'UP'
                         ? (<div className="text-green-400 text-sm flex items-center gap-2 animate-pulse
