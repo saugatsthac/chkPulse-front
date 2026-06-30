@@ -102,6 +102,7 @@ export default function Main() {
                         <AddWebsite
                             activeProjectData={activeProjectData}
                             onClose={onClose}
+                            setProjectWebsites={setProjectWebsites}
                         />
                     }
                     {modalType === "editProject" &&

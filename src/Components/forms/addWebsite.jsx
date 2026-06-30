@@ -4,8 +4,10 @@ import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function CreateWebsite({
+    setActiveProjects,
     activeProjectData,
-    loadWebsites,
+    setProjectWebsites,
+    // loadWebsites,
     onClose,
 }) {
     const [name, setName] = useState("");
@@ -29,16 +31,21 @@ export default function CreateWebsite({
                 ? url
                 : `https://${url}`;
 
-            await api.post("/projects/websites", {
+            const res = await api.post("/projects/websites", {
                 name,
                 url: normalizedUrl,
                 projectId: activeProjectData._id,
             });
-
+            console.log(res)
+            setProjectWebsites((prev) => ({
+                ...prev,
+                [activeProjectData._id]: [...prev[activeProjectData._id], res.data.website]
+            })
+            )
             setName("");
             setUrl("");
 
-            await loadWebsites?.();
+            // await loadWebsites?.();
             onClose?.();
         } catch (err) {
             setError(
