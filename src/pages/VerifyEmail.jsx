@@ -27,7 +27,7 @@ export default function VerifyEmail() {
 
                 setTimeout(() => {
                     navigate("/dashboard");
-                }, 2000);
+                }, 3000);
             } catch (err) {
                 setStatus("error");
                 setMessage(
