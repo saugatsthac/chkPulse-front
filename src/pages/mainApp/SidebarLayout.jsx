@@ -34,7 +34,7 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                 <img src={name} alt='name' className='w-1/2' />
 
             </div>
-            <div className="w-full px-3 mt-6 flex flex-col gap-2">
+            <div className="w-full px-3 mt6 flex flex-col gap-2">
 
                 {/* Monitors */}
                 <button

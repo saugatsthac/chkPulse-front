@@ -5,15 +5,15 @@ export default function BillingLayout() {
     // overflow-y-auto
     // scrollbar-thumb-slate-600/40 hover:scrollbar-thumb-slate-500/50
     return (
-        <div className="grow overflow-y-auto px-6 py-7 scrollbar-gutter-stable 
+        <div className="grow overflow-y-auto px-6 py-7 scrollbar-gutter-stable gap-8 flex flex-col
 scrollbar-thin
 scrollbar-track-transparent
 scrollbar-thumb-white/10
 hover:scrollbar-thumb-white/20"
         >
 
-            <div className="mb-8">
-                <h1 className="text-3xl font-light tracking-tight">
+            <div className="mb8">
+                <h1 className="text-3xl font-light">
                     Billing
                 </h1>
 
@@ -138,7 +138,7 @@ hover:scrollbar-thumb-white/20"
 
             </div>
 
-            <div className="mt-8 rounded-2xl border border-white/10 bg-[#111217] p-6 w-[49%]">
+            <div className="mt8 rounded-2xl border border-white/10 bg-[#111217] p-6 w-[49%]">
 
                 <h2 className="text-xl font-light">
                     Usage

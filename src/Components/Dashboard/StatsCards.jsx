@@ -35,11 +35,11 @@ export default function ({ avgResponseTime, totalMonitors, openIncidents, projec
     ];
 
     return (
-        <div className="w-full flex flex-col font-light divide-y-2 divide-white/3 gap-3">
+        <div className="w-3/3 flex font-light divide-y-2 divide-white/3 gap-3 mb-8">
             {stats.map((s) =>
                 <div
                     key={s.title}
-                    className="min-w-1 flex flex-col justify-between  text-sm px-6 py-7 border border-white/10 rounded-2xl
+                    className="min-w-1 flex flex-col flex-1 justify-start text-sm px-6 py-7 border border-white/10 rounded-2xl
                     bg-[#111217]">
 
                     <span className="tracking-wide text-left opacity-80">

@@ -9,12 +9,15 @@ export default function NotificationsLayout({
     setModalType,
 }) {
     return (
-        <div className="grow overflow-y-auto px-6 py-7">
+        <div className="grow overflow-y-auto px-6 py-7 
+        scrollbar-gutter-stable
+        scrollbar-thin
+">
 
             <div className="flex justify-between items-center mb-8">
 
                 <div>
-                    <h1 className="text-2xl font-light">
+                    <h1 className="text-3xl font-light">
                         Notifications
                     </h1>
 
