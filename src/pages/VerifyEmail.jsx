@@ -25,9 +25,9 @@ export default function VerifyEmail() {
                 setStatus("success");
                 setMessage(data.message);
 
-                setTimeout(() => {
-                    navigate("/dashboard");
-                }, 3000);
+                // setTimeout(() => {
+                //     navigate("/dashboard");
+                // }, 3000);
             } catch (err) {
                 setStatus("error");
                 setMessage(
@@ -67,7 +67,9 @@ export default function VerifyEmail() {
                         </p>
 
                         <p className="mt-4 text-gray-500">
-                            Redirecting...
+                            Your can close this tab and login to your account.
+                            {/* Log in with your credentials to access your account. */}
+                            {/* Redirecting... */}
                         </p>
                     </>
                 )}

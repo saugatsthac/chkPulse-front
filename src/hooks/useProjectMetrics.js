@@ -17,6 +17,7 @@ export default function useProjectMetrics(projectWebsites) {
     }, [projectWebsites]);
 
     const openIncidents = useMemo(() => {
+        if (!projectWebsites.length) return undefined;
         return projectWebsites.filter(
             (w) => w.status !== "UP"
         ).length;
