@@ -49,10 +49,10 @@ function MonitorRow({ w,
             <div className={`h-full flex flex-col justify-center gap-1 w-full`}>
                 <div className="flex gap-5 items-center">
                     <div className="flex items-baseline gap-2">
-                        <span className='text-sm text-white/20 group-hover:text-white transition-all duration-300'>
+                        <span className='text-sm text-white/20 grouphover:text-white transition-all duration-200'>
                             {protocol}
                         </span>
-                        <span className='text-lg font-semibold text-white/80'>
+                        <span className='text-lg font-light text-white/80'>
                             {domain}
                         </span>
                         {/* <span className='text-lg font-light'>

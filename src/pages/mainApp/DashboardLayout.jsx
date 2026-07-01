@@ -133,7 +133,7 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                         </div>
                                     </div>
                                 </div >
-                                <div className='flex flex-col gap-3'>
+                                <div className='flex flex-col gap-3 min-h-[50vh]'>
                                     {filteredWebsites.map((w, index) => (
                                         <MonitorRow
                                             key={w._id}

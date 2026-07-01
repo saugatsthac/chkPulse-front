@@ -1,25 +1,29 @@
-import logo from '../../assets/logo.png'
-import monitor from '../../assets/Curve.svg'
-import name from '../../assets/Curve02.svg'
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import MonitorIcon from '@mui/icons-material/Monitor';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
-// import AddBoxIcon from '@mui/icons-material/AddBox';
-import SettingsIcon from '@mui/icons-material/Settings';
+import monitor from "../../assets/Curve.svg";
+import name from "../../assets/Curve02.svg";
+
+import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
+import SettingsIcon from "@mui/icons-material/Settings";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
+
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "motion/react";
+
 import QuickActionButton from "../../Components/Buttons/QuickActionButton";
-// import SidebarButton from "../../Components/Buttons/SidebarButton";
 import SidebarDisclosure from "../../Components/Buttons/SidebarDisclosure";
 import ProjectCard from "../../Components/Cards/ProjectCard";
-import { useState } from "react";
 
-
-export default function SidebarLayout({ activeProject, projects, activeProjectData, setActiveProjectData, setShowModal, sidebarSelection,
-    setSidebarSelection, setModalType }) {
+export default function SidebarLayout({
+    activeProject,
+    projects,
+    activeProjectData,
+    setActiveProjectData,
+    setShowModal,
+    sidebarSelection,
+    setSidebarSelection,
+    setModalType,
+}) {
     const navigate = useNavigate();
 
     const logout = () => {
@@ -28,16 +32,20 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
     };
 
     return (
-        <div className="min-w-80 max-w-80 border-slate-800/30 text-white/90 h-full flex flex-col gap-4
-        bg-[#111217] font-light border-r py-7 pb-0">
-            <div className='w-full flex h-auto gap-2 px-4 justify-start'>
-                <img src={monitor} alt='monitor' className='w-1/6' />
-                <img src={name} alt='name' className='w-1/2' />
-
+        <div
+            className="min-w-80 max-w-80 h-full flex flex-col gap-4
+            bg-[#111217] border-r border-slate-800/30
+            text-white/90 font-light py-7 pb-0"
+        >
+            {/* Logo */}
+            <div className="w-full flex gap-2 px-4">
+                <img src={monitor} alt="monitor" className="w-1/6" />
+                <img src={name} alt="name" className="w-1/2" />
             </div>
-            <div className="w-full px-3 mt6 flex flex-col gap-1">
+
+            {/* Navigation */}
+            <div className="w-full px-3 mt-6 flex flex-col gap-1">
                 <SidebarDisclosure
-                    key={sidebarSelection === "monitors" ? "open" : "closed"}
                     icon={MonitorHeartIcon}
                     title="Monitors"
                     selected={sidebarSelection === "monitors"}
@@ -67,69 +75,231 @@ export default function SidebarLayout({ activeProject, projects, activeProjectDa
                 <SidebarDisclosure
                     icon={NotificationsActiveIcon}
                     title="Notifications"
+                    selected={sidebarSelection === "notifications"}
                     onClick={() => setSidebarSelection("notifications")}
-                    selected={sidebarSelection === "notifications"} />
+                />
 
                 <SidebarDisclosure
                     icon={CreditCardIcon}
                     title="Billing"
+                    selected={sidebarSelection === "billing"}
                     onClick={() => setSidebarSelection("billing")}
-                    selected={sidebarSelection === "billing"} />
+                />
 
                 <SidebarDisclosure
                     icon={SettingsIcon}
                     title="Settings"
+                    selected={sidebarSelection === "settings"}
                     onClick={() => setSidebarSelection("settings")}
-                    selected={sidebarSelection === "settings"} />
+                />
             </div>
 
-            <div className="h-px bg-white/10 my3" />
-            {sidebarSelection === 'monitors' &&
-                <div className="w-full grow flex flex-col items-start 
-                min-h-0 pl-2 gap-2 border-white/20">
+            {/* Divider */}
+            <motion.div
+                layout="position"
+                className="h-px bg-white/10"
+            />
 
-                    <h2 className="text-xs pl-7 text-white/60">PROJECTS</h2>
-                    <div className="grow
-            flex flex-col pr-2
-            w-full scrollbar-thin overflow-y-auto 
-            scrollbar-gutter-stable 
-            scrollbar-track-transparent
-            scrollbar-thumb-slate-800/50 scrollbar-thumb-rounded-lg gap-1
-            hover:scrollbar-thumb-slate-800/60">
-                        {projects?.map((p) => (
-                            <ProjectCard
-                                key={p?._id}
-                                p={p}
-                                setActiveProjectData={setActiveProjectData}
-                                isActive={activeProjectData && activeProjectData._id === p._id}
-                            />
+            {/* Projects */}
+            <AnimatePresence mode="wait">
+                {sidebarSelection === "monitors" && (
+                    <motion.div
+                        key="projects"
+                        layout="position"
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2 }}
+                        className="w-full grow flex flex-col items-start min-h-0 pl-2 gap-2"
+                    >
+                        <h2 className="text-xs pl-7 text-white/60">
+                            PROJECTS
+                        </h2>
 
-                        ))}
-                    </div >
-                </div>
-            }
+                        <div
+                            className="
+                            grow
+                            w-full
+                            pr-2
+                            flex flex-col
+                            overflow-y-auto
+                            scrollbar-thin
+                            scrollbar-gutter-stable
+                            scrollbar-track-transparent
+                            scrollbar-thumb-slate-800/50
+                            hover:scrollbar-thumb-slate-800/60
+                            gap-1"
+                        >
+                            {projects?.map((p) => (
+                                <ProjectCard
+                                    key={p._id}
+                                    p={p}
+                                    isActive={activeProjectData?._id === p._id}
+                                    setActiveProjectData={
+                                        setActiveProjectData
+                                    }
+                                />
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-
-
-            <div className="border-t border-white/10 py-3 px-4 gap-1 flex flex-col mt-auto">
-                <QuickActionButton onClick={() => {
-                    setShowModal(true);
-                    setModalType("createProject");
-
-                }}>
+            {/* Footer */}
+            <motion.div
+                layout="position"
+                className="border-t border-white/10 py-3 px-4 mt-auto flex flex-col gap-1"
+            >
+                <QuickActionButton
+                    onClick={() => {
+                        setShowModal(true);
+                        setModalType("createProject");
+                    }}
+                >
                     Rajiv
                 </QuickActionButton>
-                <QuickActionButton onClick={() => {
-                    logout()
-                }}>
+
+                <QuickActionButton onClick={logout}>
                     Logout
                 </QuickActionButton>
-
-            </div>
-
-
-        </div >)
+            </motion.div>
+        </div>
+    );
 }
+
+// import logo from '../../assets/logo.png'
+// import monitor from '../../assets/Curve.svg'
+// import name from '../../assets/Curve02.svg'
+// import DashboardIcon from '@mui/icons-material/Dashboard';
+// import MonitorIcon from '@mui/icons-material/Monitor';
+// import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+// import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
+// // import AddBoxIcon from '@mui/icons-material/AddBox';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+// import CreditCardIcon from "@mui/icons-material/CreditCard";
+// import AddIcon from '@mui/icons-material/Add';
+// import { useNavigate } from "react-router-dom";
+// import QuickActionButton from "../../Components/Buttons/QuickActionButton";
+// // import SidebarButton from "../../Components/Buttons/SidebarButton";
+// import SidebarDisclosure from "../../Components/Buttons/SidebarDisclosure";
+// import ProjectCard from "../../Components/Cards/ProjectCard";
+// import { useState } from "react";
+// import { motion } from "motion/react";
+
+
+// export default function SidebarLayout({ activeProject, projects, activeProjectData, setActiveProjectData, setShowModal, sidebarSelection,
+//     setSidebarSelection, setModalType }) {
+//     const navigate = useNavigate();
+
+//     const logout = () => {
+//         localStorage.removeItem("token");
+//         navigate("/");
+//     };
+
+//     return (
+//         <div layout className="min-w-80 max-w-80 border-slate-800/30 text-white/90 h-full flex flex-col gap-4
+//         bg-[#111217] font-light border-r py-7 pb-0">
+//             <div className='w-full flex h-auto gap-2 px-4 justify-start'>
+//                 <img src={monitor} alt='monitor' className='w-1/6' />
+//                 <img src={name} alt='name' className='w-1/2' />
+
+//             </div>
+//             <div layout className="w-full px-3 mt6 flex flex-col gap-1">
+//                 <SidebarDisclosure
+//                     key={sidebarSelection === "monitors" ? "open" : "closed"}
+//                     icon={MonitorHeartIcon}
+//                     title="Monitors"
+//                     selected={sidebarSelection === "monitors"}
+//                     onClick={() => setSidebarSelection("monitors")}
+//                 >
+//                     <QuickActionButton
+//                         icon={AddIcon}
+//                         onClick={() => {
+//                             setShowModal(true);
+//                             setModalType("createProject");
+//                         }}
+//                     >
+//                         Add Project
+//                     </QuickActionButton>
+
+//                     <QuickActionButton
+//                         icon={AddIcon}
+//                         onClick={() => {
+//                             setShowModal(true);
+//                             setModalType("addWebsite");
+//                         }}
+//                     >
+//                         Add Website
+//                     </QuickActionButton>
+//                 </SidebarDisclosure>
+
+//                 <SidebarDisclosure
+//                     icon={NotificationsActiveIcon}
+//                     title="Notifications"
+//                     onClick={() => setSidebarSelection("notifications")}
+//                     selected={sidebarSelection === "notifications"} />
+
+//                 <SidebarDisclosure
+//                     icon={CreditCardIcon}
+//                     title="Billing"
+//                     onClick={() => setSidebarSelection("billing")}
+//                     selected={sidebarSelection === "billing"} />
+
+//                 <SidebarDisclosure
+//                     icon={SettingsIcon}
+//                     title="Settings"
+//                     onClick={() => setSidebarSelection("settings")}
+//                     selected={sidebarSelection === "settings"} />
+//             </div>
+
+//             <motion.div layout className="h-px bg-white/10 my3" />
+//             {sidebarSelection === 'monitors' &&
+//                 <motion.div layout className="w-full grow flex flex-col items-start 
+//                 min-h-0 pl-2 gap-2 border-white/20">
+
+//                     <h2 className="text-xs pl-7 text-white/60">PROJECTS</h2>
+//                     <div className="grow
+//             flex flex-col pr-2
+//             w-full scrollbar-thin overflow-y-auto 
+//             scrollbar-gutter-stable 
+//             scrollbar-track-transparent
+//             scrollbar-thumb-slate-800/50 scrollbar-thumb-rounded-lg gap-1
+//             hover:scrollbar-thumb-slate-800/60">
+//                         {projects?.map((p) => (
+//                             <ProjectCard
+//                                 key={p?._id}
+//                                 p={p}
+//                                 setActiveProjectData={setActiveProjectData}
+//                                 isActive={activeProjectData && activeProjectData._id === p._id}
+//                             />
+
+//                         ))}
+//                     </div >
+//                 </motion.div>
+//             }
+
+
+
+//             <motion.div layout className="border-t border-white/10 py-3 px-4 gap-1 flex flex-col mt-auto">
+//                 <QuickActionButton onClick={() => {
+//                     setShowModal(true);
+//                     setModalType("createProject");
+
+//                 }}>
+//                     Rajiv
+//                 </QuickActionButton>
+//                 <QuickActionButton onClick={() => {
+//                     logout()
+//                 }}>
+//                     Logout
+//                 </QuickActionButton>
+
+//             </motion.div>
+
+
+//         </div >)
+// }
 {/* <button className="font-light bg-none
 flex w-fit text-lg
 transition-all duration-300"
