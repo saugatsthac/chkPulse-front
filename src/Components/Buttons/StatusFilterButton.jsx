@@ -3,6 +3,7 @@ export function StatusFilterButton({
     value,
     active,
     onClick,
+    length
 }) {
     const styles = {
         ALL: active
@@ -30,7 +31,7 @@ export function StatusFilterButton({
                 ${styles[value]}
             `}
         >
-            {label}
+            {label}{length !== undefined && ` (${length})`}
         </button>
     );
 }
