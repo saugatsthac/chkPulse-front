@@ -23,7 +23,7 @@ export default function LandingPage() {
             <nav className="relative z-10 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
 
                 <h1 className="text-2xl font-bold tracking-tight">
-                    chkPulse
+                    ChkPulse
                 </h1>
 
                 <div className="flex gap-4">
