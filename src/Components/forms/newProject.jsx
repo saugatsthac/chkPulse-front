@@ -3,7 +3,7 @@ import api from "../../api/axios";
 
 export default function AddProject({ setProjects, onClose }) {
     const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+    // const [description, setDescription] = useState("");
     const [color, setColor] = useState("#3b82f6");
     const [loading, setLoading] = useState(false);
 
@@ -21,7 +21,7 @@ export default function AddProject({ setProjects, onClose }) {
         try {
             const res = await api.post("/projects", {
                 name,
-                description,
+                // description,
                 color,
             });
 
@@ -29,7 +29,7 @@ export default function AddProject({ setProjects, onClose }) {
                 setProjects(prev => [...prev, res.data.project]);
 
                 setName("");
-                setDescription("");
+                // setDescription("");
                 setColor("#3b82f6");
             }
 
@@ -45,25 +45,25 @@ export default function AddProject({ setProjects, onClose }) {
         <div className="w-full h-full flex items-center justify-center bg-black/40">
             <div className="bg-[#111217] border border-white/10 rounded-2xl p-6 w-[440px]">
 
-                <h2 className="text-white text-lg font-light mb-6">
+                <h2 className="text-white text-lg font-light mb-7">
                     Create Project
                 </h2>
-
+                <span>Project Name:</span>
                 <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Project name (e.g. Backend APIs)"
-                    className="w-full mb-3 px-4 py-3 rounded-xl bg-[#0B0F14] border border-white/10 text-white outline-none focus:border-white/30"
+                    className="w-full mb-7 px-4 py-3 rounded-xl bg-[#0B0F14] border border-white/10 text-white outline-none focus:border-white/30"
                 />
 
-                <textarea
+                {/* <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description (optional)"
                     className="w-full mb-3 px-4 py-3 rounded-xl bg-[#0B0F14] border border-white/10 text-white outline-none focus:border-white/30 resize-none h-24"
-                />
+                /> */}
 
-                <div className="flex gap-2 mb-6 flex-wrap">
+                <div className="flex gap-2 mb-7 flex-wrap">
                     {COLORS.map((c) => (
                         <button
                             key={c}

@@ -95,10 +95,10 @@ function MonitorRow({ w,
                                 anchor="bottom end"
                                 className="mt-2 w-44 origin-top-right rounded-xl border border-white/10 bg-[#0f1117] shadow-[0_10px_30px_rgba(0,0,0,0.45)]
                 backdrop-blur-xl p-1 focus:outline-none z-50">
-
+                                {/* 
                                 <DropdownItem onClick={() => { }}>
                                     Edit
-                                </DropdownItem >
+                                </DropdownItem > */}
                                 <DropdownItem onClick={() => {
                                     setSelectedWebsite(w);
                                     setModalType("deleteWebsite");

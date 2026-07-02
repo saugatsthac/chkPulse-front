@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ResponseTimeChart from '../../Components/Dashboard/ResponseTimeChart';
 import WeeklyUptimeChart from '../../Components/Dashboard/WeeklyTimeChart';
 import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
+import Button from '../../Components/Buttons/Button';
 
 
 export default function DashboardLayout({ setShowModal, setModalType, activeProjectData, projectWebsites, sidebarSelection,
@@ -20,7 +21,7 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
         { label: "All", value: "ALL" },
         { label: "Operational", value: "Operational" },
         { label: 'Issues', value: "ISSUES" },
-        { label: 'Maintenance', value: "MAINTENANCE" }
+        // { label: 'Maintenance', value: "MAINTENANCE" }
     ];
 
     const [showOptions, setShowOptions] = useState(null)
@@ -60,6 +61,9 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
         }
     );
 
+    const MAX_ROWS = 5;
+    const emptyRows = Math.max(0, MAX_ROWS - projectWebsites.length);
+
     return (
         <div className="grow h-full min-h-0 flex flex-col items-start justify-start overflow-y-auto overflow-x-hidden 
         scrollbar-gutter-stable
@@ -67,8 +71,8 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
         scrollbar-thin
 
         px-6 py-7 gap-7 font-light">
-            <div className=" w-full flex justify-between items-center">
-                <div>
+            <div className="w-full flex justify-between items-center">
+                <div className="flex flex-col gap-1 grow">
                     <h1 className="text-3xl font-light">
                         Monitors
                     </h1>
@@ -77,6 +81,15 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                         Manage your monitors and configure their settings.
                     </p>
                 </div>
+                {/* <Button
+                    icon={AddIcon}
+                    onClick={() => {
+                        setShowModal(true);
+                        setModalType("addWebsite");
+                    }}
+                >
+                    Add Website
+                </Button> */}
 
             </div>
 
@@ -103,13 +116,13 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                         </div>
                         <div className='flex w-full gap-6 items-start'>
 
-                            <div className='flex flex-col w-full justify-start gap-3 bg-[#111217] px-6 py-7 rounded-2xl
+                            <div className='flex flex-col w-full justify-start gap-7 bg-[#111217] px-6 py-7 rounded-2xl
                 border border-white/5'>
                                 <div className="flex flex-col w-full items-end gap-3">
                                     <div className='flex w-full justify-between items-end'>
                                         {/* <div className='text-base'>Monitors</div> */}
 
-                                        <div className='flex gap-2 font-light text-base'>
+                                        <div className='flex gap-2 font-light text-base w-full justify-end'>
 
                                             {filters.map(filter => (
                                                 <StatusFilterButton
@@ -121,7 +134,7 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                                 />
                                             ))}
                                         </div>
-                                        <div className='flex gap-3 items-center'>
+                                        {/* <div className='flex gap-3 items-center'>
 
                                             <button className="rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-center gap-2
                     ">
@@ -130,10 +143,10 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                                     Refresh monitors
                                                 </span>
                                             </button>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div >
-                                <div className='flex flex-col gap-3 min-h-[50vh]'>
+                                <div className='flex flex-col gap-3 min-h-[70vh]'>
                                     {filteredWebsites.map((w, index) => (
                                         <MonitorRow
                                             key={w._id}
@@ -143,6 +156,27 @@ export default function DashboardLayout({ setShowModal, setModalType, activeProj
                                             setModalType={setModalType}
                                             showOptions={showOptions}
                                             setShowOptions={setShowOptions} />
+                                    ))}
+                                    {Array.from({ length: emptyRows }).map((_, index) => (
+                                        <div
+                                            onClick={() => {
+                                                setShowModal(true);
+                                                setModalType("addWebsite");
+                                            }}
+                                            className={`w-full h-26 flex py-6 gap-2 
+                                                bg-gray-900/50 
+                                                border border-dashed
+                                                 rounded-2xl group
+                                        p-5 justify-start text-white/50 font-light text-base
+                                        cursor-pointer items-center textlg
+                                        transition-all duration-100 border-white/10`}
+                                            key={`empty-${index}`}
+                                        >
+                                            <AddIcon className='h-4! w-4!' />
+                                            <span className='text-base font-light'>
+                                                Add website
+                                            </span>
+                                        </div>
                                     ))}
                                 </div>
                             </div >

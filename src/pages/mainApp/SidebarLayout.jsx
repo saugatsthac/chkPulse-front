@@ -13,6 +13,8 @@ import { motion, AnimatePresence } from "motion/react";
 import QuickActionButton from "../../Components/Buttons/QuickActionButton";
 import SidebarDisclosure from "../../Components/Buttons/SidebarDisclosure";
 import ProjectCard from "../../Components/Cards/ProjectCard";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import DropdownItem from "../../Components/Buttons/DropdownItem";
 
 export default function SidebarLayout({
     activeProject,
@@ -51,25 +53,18 @@ export default function SidebarLayout({
                     selected={sidebarSelection === "monitors"}
                     onClick={() => setSidebarSelection("monitors")}
                 >
-                    <QuickActionButton
-                        icon={AddIcon}
-                        onClick={() => {
-                            setShowModal(true);
-                            setModalType("createProject");
-                        }}
-                    >
-                        Add Project
-                    </QuickActionButton>
+                    {projects.length < 5 && (
+                        <QuickActionButton
+                            icon={AddIcon}
+                            onClick={() => {
+                                setShowModal(true);
+                                setModalType("createProject");
+                            }}
+                        >
+                            Add Project
+                        </QuickActionButton>)}
 
-                    <QuickActionButton
-                        icon={AddIcon}
-                        onClick={() => {
-                            setShowModal(true);
-                            setModalType("addWebsite");
-                        }}
-                    >
-                        Add Website
-                    </QuickActionButton>
+
                 </SidebarDisclosure>
 
                 <SidebarDisclosure
@@ -102,7 +97,7 @@ export default function SidebarLayout({
 
             {/* Projects */}
             <AnimatePresence mode="wait">
-                {sidebarSelection === "monitors" && (
+                {projects.length > 0 && sidebarSelection === "monitors" && (
                     <motion.div
                         key="projects"
                         layout="position"
@@ -144,29 +139,45 @@ export default function SidebarLayout({
                     </motion.div>
                 )}
             </AnimatePresence>
-
+            {/* flex flex-col gap-1 */}
             {/* Footer */}
             <motion.div
                 layout="position"
-                className="border-t border-white/10 py-3 px-4 mt-auto flex flex-col gap-1"
+                className="relative border-t border-white/10 py-6 px-4 mt-auto"
             >
-                <QuickActionButton
-                    onClick={() => {
-                        setShowModal(true);
-                        setModalType("createProject");
-                    }}
-                >
-                    Rajiv
-                </QuickActionButton>
-
-                <QuickActionButton onClick={logout}>
-                    Logout
-                </QuickActionButton>
-            </motion.div>
+                <Menu>
+                    <MenuButton className='text-left'>
+                        Rajiv
+                    </MenuButton>
+                    <MenuItems
+                        anchor="top start"
+                        className="absolute w-44 origin-top-right rounded-xl border border-white/10 bg-[#0f1117] shadow-[0_10px_30px_rgba(0,0,0,0.45)]
+                backdrop-blur-xl p-1 focus:outline-none z-50">
+                        <DropdownItem onClick={() => {
+                            logout()
+                        }}>
+                            Logout
+                        </DropdownItem>
+                    </MenuItems>
+                </Menu>
+            </motion.div >
         </div>
     );
 }
 
+{/* <QuickActionButton
+    onClick={() => {
+        setShowModal(true);
+        setModalType("createProject");
+    }}
+> */}
+
+{/* </QuickActionButton> */ }
+
+{/* <QuickActionButton onClick={logout}>
+        Logout
+    </QuickActionButton> */}
+// */
 // import logo from '../../assets/logo.png'
 // import monitor from '../../assets/Curve.svg'
 // import name from '../../assets/Curve02.svg'
@@ -179,16 +190,16 @@ export default function SidebarLayout({
 // import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 // import CreditCardIcon from "@mui/icons-material/CreditCard";
 // import AddIcon from '@mui/icons-material/Add';
-// import { useNavigate } from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 // import QuickActionButton from "../../Components/Buttons/QuickActionButton";
 // // import SidebarButton from "../../Components/Buttons/SidebarButton";
 // import SidebarDisclosure from "../../Components/Buttons/SidebarDisclosure";
 // import ProjectCard from "../../Components/Cards/ProjectCard";
-// import { useState } from "react";
-// import { motion } from "motion/react";
+// import {useState} from "react";
+// import {motion} from "motion/react";
 
 
-// export default function SidebarLayout({ activeProject, projects, activeProjectData, setActiveProjectData, setShowModal, sidebarSelection,
+// export default function SidebarLayout({activeProject, projects, activeProjectData, setActiveProjectData, setShowModal, sidebarSelection,
 //     setSidebarSelection, setModalType }) {
 //     const navigate = useNavigate();
 

@@ -1,4 +1,4 @@
-export default function QuickActionButton({
+export default function Button({
     children,
     onClick,
     icon: Icon,
@@ -7,17 +7,20 @@ export default function QuickActionButton({
         <button
             onClick={onClick}
             className="flex items-center
-        w-full text-left
+        text-left
         rounded-lg
         px-3 py-3
         text-sm
-        text-gray-400
-        hover:bg-white/5
+        bg-slate-800 hover:bg-slate-700
+        text-white
+        transition
+        duration-200
         hover:text-white
-      "
+        "
         >
             {Icon && <Icon fontSize="small" className="mr-2" />}
             {children}
         </button>
     );
 }
+// hover:bg-white/5

@@ -41,7 +41,7 @@ export default function ({ avgResponseTime, totalMonitors, openIncidents, projec
     ];
 
     return (
-        <div className="w-3/3 flex font-light divide-y-2 divide-white/3 gap-6">
+        <div className="w-3/3 flex font-light divide-y-2 divide-white/3 gap-3">
             {stats.map((s) =>
                 <div
                     key={s.title}

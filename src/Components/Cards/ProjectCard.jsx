@@ -17,9 +17,9 @@ export default function ProjectCard({ p, isActive, setActiveProjectData }) {
                     {p.name}
                 </span>
             </span>
-            <span className="text-sm text-white/80 w-full text-right">
+            {/* <span className="text-sm text-white/80 w-full text-right">
                 {p.description}
-            </span>
+            </span> */}
         </div>
 
 
