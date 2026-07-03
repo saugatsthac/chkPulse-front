@@ -15,6 +15,8 @@ import SidebarDisclosure from "../../Components/Buttons/SidebarDisclosure";
 import ProjectCard from "../../Components/Cards/ProjectCard";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import DropdownItem from "../../Components/Buttons/DropdownItem";
+import { useState } from "react";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function SidebarLayout({
     activeProject,
@@ -32,6 +34,8 @@ export default function SidebarLayout({
         localStorage.removeItem("token");
         navigate("/");
     };
+
+    const [expand, setExpand] = useState(true)
 
     return (
         <div
@@ -51,7 +55,11 @@ export default function SidebarLayout({
                     icon={MonitorHeartIcon}
                     title="Monitors"
                     selected={sidebarSelection === "monitors"}
-                    onClick={() => setSidebarSelection("monitors")}
+                    expand={expand}
+                    setExpand={setExpand}
+                    onClick={() => {
+                        setSidebarSelection("monitors")
+                    }}
                 >
                     {projects.length < 5 && (
                         <QuickActionButton
@@ -74,19 +82,7 @@ export default function SidebarLayout({
                     onClick={() => setSidebarSelection("notifications")}
                 />
 
-                <SidebarDisclosure
-                    icon={CreditCardIcon}
-                    title="Billing"
-                    selected={sidebarSelection === "billing"}
-                    onClick={() => setSidebarSelection("billing")}
-                />
 
-                <SidebarDisclosure
-                    icon={SettingsIcon}
-                    title="Settings"
-                    selected={sidebarSelection === "settings"}
-                    onClick={() => setSidebarSelection("settings")}
-                />
             </div>
 
             {/* Divider */}
@@ -143,25 +139,42 @@ export default function SidebarLayout({
             {/* Footer */}
             <motion.div
                 layout="position"
-                className="relative border-t border-white/10 py-6 px-4 mt-auto"
+                className="relative border-t border-white/10 py-2 px-2 mt-auto"
             >
                 <Menu>
-                    <MenuButton className='text-left'>
+                    <MenuButton className='relative text-left p-3'>
                         Rajiv
                     </MenuButton>
                     <MenuItems
-                        anchor="top start"
-                        className="absolute w-44 origin-top-right rounded-xl border border-white/10 bg-[#0f1117] shadow-[0_10px_30px_rgba(0,0,0,0.45)]
+                        anchor="bottom start"
+                        className="w-44 origin-top-right rounded-xl border border-white/10 bg-[#0f1117] shadow-[0_10px_30px_rgba(0,0,0,0.45)]
                 backdrop-blur-xl p-1 focus:outline-none z-50">
-                        <DropdownItem onClick={() => {
-                            logout()
-                        }}>
+                        <DropdownItem
+                            icon={CreditCardIcon}
+                            title=""
+                            selected={sidebarSelection === "billing"}
+                            onClick={() => setSidebarSelection("billing")}
+                        > Billing
+                        </DropdownItem>
+
+                        <DropdownItem
+                            icon={SettingsIcon}
+                            title=""
+                            selected={sidebarSelection === "settings"}
+                            onClick={() => setSidebarSelection("settings")}
+                        >Settings
+                        </DropdownItem>
+                        <DropdownItem
+                            icon={LogoutIcon}
+                            onClick={() => {
+                                logout()
+                            }}>
                             Logout
                         </DropdownItem>
                     </MenuItems>
                 </Menu>
             </motion.div >
-        </div>
+        </div >
     );
 }
 

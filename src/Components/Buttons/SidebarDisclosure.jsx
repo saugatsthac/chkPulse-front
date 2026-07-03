@@ -1,6 +1,7 @@
 import { Children } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
 
 export default function SidebarDisclosure({
     icon: Icon,
@@ -8,6 +9,8 @@ export default function SidebarDisclosure({
     selected,
     onClick,
     children,
+    expand = true,
+    setExpand
 }) {
     const hasChildren = Children.count(children) > 0;
 
@@ -46,16 +49,16 @@ export default function SidebarDisclosure({
                     <span>{title}</span>
                 </div>
 
-                {/* <motion.div
-                    animate={{ rotate: selected ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                >
-                    <KeyboardArrowDownIcon />
-                </motion.div> */}
+                <motion.div
+                    animate={{ rotate: expand ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}>
+                    <KeyboardArrowDownIcon
+                        onClick={() => setExpand(!expand)} />
+                </motion.div>
             </button>
 
             <AnimatePresence initial={false}>
-                {selected && (
+                {selected && expand && (
                     <motion.div
                         initial={{
                             height: 0,
