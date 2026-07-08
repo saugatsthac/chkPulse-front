@@ -19,7 +19,7 @@ const sampleData = [
     { day: "Sun", uptime: 100.0 },
 ];
 
-import { CustomTooltip } from "./CustomTooltip";
+import { CustomTooltip } from "../Dashboard/CustomTooltip";
 export default function WeeklyUptimeChart({
     data = sampleData,
 }) {

@@ -13,7 +13,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<div>404 Not Found</div>} />
+        <Route path="*" element={<div className="w-screen h-screen flex justify-center pt-10">404 Not Found</div>} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
