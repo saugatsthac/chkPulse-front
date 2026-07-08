@@ -40,7 +40,7 @@ export default function WebsiteDetails({ website, onClose }) {
 
   return (
     <div
-      className="w-[1100px] max-w-[95vw] h-[84vh] bg-[#111217] rounded-2xl border border-white/10
+      className="w-275 max-w-[95vw] h-[84vh] bg-[#111217] rounded-2xl border border-white/10
      
         overflow-hidden"
     >

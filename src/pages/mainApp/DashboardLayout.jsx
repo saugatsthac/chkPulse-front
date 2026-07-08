@@ -111,36 +111,36 @@ export default function DashboardLayout({
         days30Uptime={days30Uptime}
       />
 
-      {projectWebsites.length > 0 && (
-        <div className="flex gap-6 w-full">
-          <div className="flex flex-col w-2/3 gap-7">
-            {/* <div className="bg-[#111217] min-h-70 rounded-2xl border border-white/5 p-6 py-7 text-base flex flex-col gap-7">
+      {/* {projectWebsites.length > 0 && ( */}
+      <div className="flex gap-6 w-full">
+        <div className="flex flex-col w-2/3 gap-7">
+          {/* <div className="bg-[#111217] min-h-70 rounded-2xl border border-white/5 p-6 py-7 text-base flex flex-col gap-7">
               <span>Reponse Time Chart</span>
               <div className="h-80">
                 <ResponseTimeChart />
               </div>
             </div> */}
-            <div className="flex w-full gap-6 items-start">
-              <div
-                className="flex flex-col w-full justify-start gap-7 bg-[#111217] px-6 py-7 rounded-2xl
+          <div className="flex w-full gap-6 items-start">
+            <div
+              className="flex flex-col w-full justify-start gap-7 bg-[#111217] px-6 py-7 rounded-2xl
                 border border-white/5"
-              >
-                <div className="flex flex-col w-full items-end gap-3">
-                  <div className="flex w-full justify-between items-end">
-                    {/* <div className='text-base'>Monitors</div> */}
+            >
+              <div className="flex flex-col w-full items-end gap-3">
+                <div className="flex w-full justify-between items-end">
+                  {/* <div className='text-base'>Monitors</div> */}
 
-                    <div className="flex gap-2 font-light text-base w-full justify-end">
-                      {filters.map((filter) => (
-                        <StatusFilterButton
-                          key={filter.value}
-                          {...filter}
-                          active={filterCondition === filter.value}
-                          onClick={setFilterCondition}
-                          length={counts[filter.value]}
-                        />
-                      ))}
-                    </div>
-                    {/* <div className='flex gap-3 items-center'>
+                  <div className="flex gap-2 font-light text-base w-full justify-end">
+                    {filters.map((filter) => (
+                      <StatusFilterButton
+                        key={filter.value}
+                        {...filter}
+                        active={filterCondition === filter.value}
+                        onClick={setFilterCondition}
+                        length={counts[filter.value]}
+                      />
+                    ))}
+                  </div>
+                  {/* <div className='flex gap-3 items-center'>
 
                                             <button className="rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-center gap-2
                     ">
@@ -150,60 +150,60 @@ export default function DashboardLayout({
                                                 </span>
                                             </button>
                                         </div> */}
-                  </div>
                 </div>
-                <div className="flex flex-col gap-3 min-h-[70vh]">
-                  {filteredWebsites.map((w, index) => (
-                    <MonitorRow
-                      key={w._id}
-                      w={w}
-                      setSelectedWebsite={setSelectedWebsite}
-                      setShowModal={setShowModal}
-                      setModalType={setModalType}
-                      showOptions={showOptions}
-                      setShowOptions={setShowOptions}
-                    />
-                  ))}
-                  {Array.from({ length: emptyRows }).map((_, index) => (
-                    <div
-                      onClick={() => {
-                        setShowModal(true);
-                        setModalType("addWebsite");
-                      }}
-                      className={`w-full h-26 flex py-6 gap-2 
+              </div>
+              <div className="flex flex-col gap-3 min-h-[70vh]">
+                {filteredWebsites.map((w, index) => (
+                  <MonitorRow
+                    key={w._id}
+                    w={w}
+                    setSelectedWebsite={setSelectedWebsite}
+                    setShowModal={setShowModal}
+                    setModalType={setModalType}
+                    showOptions={showOptions}
+                    setShowOptions={setShowOptions}
+                  />
+                ))}
+                {Array.from({ length: emptyRows }).map((_, index) => (
+                  <div
+                    onClick={() => {
+                      setShowModal(true);
+                      setModalType("addWebsite");
+                    }}
+                    className={`w-full h-26 flex py-6 gap-2 
                                                 bg-gray-900/50 
                                                 border border-dashed
                                                  rounded-2xl group
                                         p-5 justify-start text-white/50 font-light text-base
                                         cursor-pointer items-center textlg
                                         transition-all duration-100 border-white/10`}
-                      key={`empty-${index}`}
-                    >
-                      <AddIcon className="h-4! w-4!" />
-                      <span className="text-base font-light">Add website</span>
-                    </div>
-                  ))}
-                </div>
+                    key={`empty-${index}`}
+                  >
+                    <AddIcon className="h-4! w-4!" />
+                    <span className="text-base font-light">Add website</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-          <div className=" grow flex flex-col justify-start items-start gap-8">
-            {/* <span className='px-6 py-7 text-lg tracking-tight w-full justify-end flex text-right border border-white/10 rounded-2xl bg-[#111217]'>
+        </div>
+        <div className=" grow flex flex-col justify-start items-start gap-8">
+          {/* <span className='px-6 py-7 text-lg tracking-tight w-full justify-end flex text-right border border-white/10 rounded-2xl bg-[#111217]'>
                             {activeProjectData?.name}<br />
                             have shared among too.<br />
                             have a share button to add usernames here.<br />
                             notification buttons here too.
                         </span> */}
 
-            <div className="border border-white/5 w-full h-70 rounded-2xl bg-[#111217] p-6 py-7 gap-7 flex flex-col">
-              <span>Weekly Uptime Chart</span>
-              <div className="h-full">
-                <WeeklyUptimeChart />
-              </div>
+          <div className="border border-white/5 w-full h-70 rounded-2xl bg-[#111217] p-6 py-7 gap-7 flex flex-col">
+            <span>Weekly Uptime Chart</span>
+            <div className="h-full">
+              <WeeklyUptimeChart />
             </div>
           </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
     </div>
   );
 }
