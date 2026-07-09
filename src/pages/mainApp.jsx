@@ -18,6 +18,7 @@ import AddEmailChannel from "../Components/forms/AddEmailChannel";
 import AddDiscordChannel from "../Components/forms/AddDiscordChannel";
 import BillingLayout from "./mainApp/Billing";
 import DeleteMonitorModal from "../Components/forms/DeleteWebsite";
+import AddProjectAndWebsites from "../Components/forms/add-project-and-websites";
 
 export default function Main() {
   const { projects, setProjects, activeProjectData, setActiveProjectData } =
@@ -27,16 +28,20 @@ export default function Main() {
     activeProjectData?._id,
   );
 
-  const { avgResponseTime, totalMonitors, openIncidents, days30Uptime } =
-    useProjectMetrics(projectWebsites);
+  const {
+    avgResponseTime,
+    totalMonitors,
+    openIncidents,
+    // days30Uptime
+  } = useProjectMetrics(projectWebsites);
 
   const [sidebarSelection, setSidebarSelection] = useState("monitors");
   const [selectedWebsite, setSelectedWebsite] = useState(null);
 
   useEffect(() => console.log(selectedWebsite), [selectedWebsite]);
 
-  const [modalType, setModalType] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("addWebsite");
+  const [showModal, setShowModal] = useState(true);
 
   const onClose = () => {
     setShowModal(false);
@@ -60,7 +65,7 @@ export default function Main() {
         setShowModal={setShowModal}
       />
       {/* </div> */}
-      {console.log("days:", days30Uptime)}
+      {/* {console.log("days:", days30Uptime)} */}
 
       {sidebarSelection === "monitors" && (
         <DashboardLayout
@@ -71,7 +76,7 @@ export default function Main() {
           avgResponseTime={avgResponseTime}
           totalMonitors={totalMonitors}
           openIncidents={openIncidents}
-          days30Uptime={days30Uptime}
+          // days30Uptime={days30Uptime}
           setShowModal={setShowModal}
           setModalType={setModalType}
         />
@@ -87,6 +92,14 @@ export default function Main() {
 
       {showModal && (
         <Modal1 onClose={onClose}>
+          {modalType === "addProjectAndWebsite" && (
+            <AddProjectAndWebsites
+              activeProjectData={activeProjectData}
+              onClose={onClose}
+              setProjectWebsites={setProjectWebsites}
+            />
+          )}
+
           {modalType === "createProject" && (
             <NewProject setProjects={setProjects} onClose={onClose} />
           )}

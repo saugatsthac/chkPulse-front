@@ -19,15 +19,15 @@ export default function useProjectMetrics(projectWebsites) {
     return projectWebsites.filter((w) => w.status !== "UP").length;
   }, [projectWebsites]);
 
-  const days30Uptime = useMemo(() => {
-    if (!projectWebsites.length) return undefined;
-    return (
-      projectWebsites.reduce(
-        (sum, w) => sum + (Number(w.days30Uptime) || 0),
-        0,
-      ) / projectWebsites.length
-    );
-  }, [projectWebsites]);
+  // const days30Uptime = useMemo(() => {
+  //   if (!projectWebsites.length) return undefined;
+  //   return (
+  //     projectWebsites.reduce(
+  //       (sum, w) => sum + (Number(w.days30Uptime) || 0),
+  //       0,
+  //     ) / projectWebsites.length
+  //   );
+  // }, [projectWebsites]);
 
   // const averageReponseTime=useMemo(()=>{
   //       if (!projectWebsites.length) return undefined;
@@ -37,11 +37,11 @@ export default function useProjectMetrics(projectWebsites) {
   //       )
   // })
 
-  console.log("hey", days30Uptime);
+  // console.log("hey", days30Uptime);
   return {
     avgResponseTime,
     totalMonitors,
     openIncidents,
-    days30Uptime,
+    // days30Uptime,
   };
 }

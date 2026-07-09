@@ -12,24 +12,24 @@ export default function ({
       value: totalMonitors === 0 ? "-" : totalMonitors,
       class: `${totalMonitors === 0 ? "text-white/5" : "text-blue-500"}`,
     },
-    {
-      title: "OVERALL UPTIME",
-      // value: `${overallUptime.toFixed(2)}%`,
-      value: days30Uptime ? `${days30Uptime.toFixed(2)}%` : "-",
-      subtitle: "Last 30 days",
-      class:
-        days30Uptime === undefined
-          ? "text-white/5 font-light"
-          : days30Uptime > 99.9
-            ? "text-green-500"
-            : days30Uptime > 98
-              ? "text-lime-500"
-              : days30Uptime > 82
-                ? "text-yellow-500"
-                : days30Uptime > 80
-                  ? "text-orange-500"
-                  : "text-red-500",
-    },
+    // {
+    //   title: "OVERALL UPTIME",
+    //   // value: `${overallUptime.toFixed(2)}%`,
+    //   value: days30Uptime ? `${days30Uptime.toFixed(2)}%` : "-",
+    //   subtitle: "Last 30 days",
+    //   class:
+    //     days30Uptime === undefined
+    //       ? "text-white/5 font-light"
+    //       : days30Uptime > 99.9
+    //         ? "text-green-500"
+    //         : days30Uptime > 98
+    //           ? "text-lime-500"
+    //           : days30Uptime > 82
+    //             ? "text-yellow-500"
+    //             : days30Uptime > 80
+    //               ? "text-orange-500"
+    //               : "text-red-500",
+    // },
     {
       title: "AVG RESPONSE",
       value: avgResponseTime === 0 ? "-" : `${Math.round(avgResponseTime)}ms`,
@@ -61,7 +61,7 @@ export default function ({
   ];
 
   return (
-    <div className="w-3/3 flex font-light divide-y-2 divide-white/3 gap-3">
+    <div className="w-3/3 flex font-light divide-y-2 divide-white/3 gap-2">
       {stats.map((s) => (
         <div
           key={s.title}

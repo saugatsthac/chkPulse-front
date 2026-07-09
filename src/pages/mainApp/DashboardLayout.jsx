@@ -2,7 +2,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useEffect, useState } from "react";
 import { ProjectHeader } from "../../Components/Dashboard/ProjectHeader";
 import StatsCards from "../../Components/Dashboard/StatsCards";
-import MonitorRow from "../../Components/Dashboard/MonitorRow";
+import MonitorRow from "../../Components/Cards/grid-website-cards";
 import { StatusFilterButton } from "../../Components/Buttons/StatusFilterButton";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import AddIcon from "@mui/icons-material/Add";
@@ -21,7 +21,7 @@ export default function DashboardLayout({
   totalMonitors,
   openIncidents,
   setSelectedWebsite,
-  days30Uptime,
+  // days30Uptime,
 }) {
   const [filterCondition, setFilterCondition] = useState("ALL");
   const filters = [
@@ -72,8 +72,8 @@ export default function DashboardLayout({
     },
   );
 
-  const MAX_ROWS = 5;
-  const emptyRows = Math.max(0, MAX_ROWS - projectWebsites.length);
+  // const MAX_ROWS = 5;
+  // const emptyRows = Math.max(0, MAX_ROWS - projectWebsites.length);
 
   return (
     <div
@@ -84,15 +84,14 @@ export default function DashboardLayout({
 
         px-6 py-7 gap-7 font-light"
     >
-      <div className="w-full flex justify-between items-center">
-        <div className="flex flex-col gap-1 grow">
-          <h1 className="text-3xl font-light">Monitors</h1>
+      <div className="flex flex-col gap-1">
+        <h1 className="text-3xl font-light">Monitors</h1>
 
-          <p className="text-gray-500 mt-2">
-            Manage your monitors and configure their settings.
-          </p>
-        </div>
-        {/* <Button
+        <p className="text-gray-500 mt-2">
+          Manage your monitors and configure their settings.
+        </p>
+      </div>
+      {/* <Button
                     icon={AddIcon}
                     onClick={() => {
                         setShowModal(true);
@@ -100,47 +99,90 @@ export default function DashboardLayout({
                     }}
                 >
                     Add Website
-                </Button> */}
-      </div>
+                    </Button> */}
 
       <StatsCards
         projectWebsites={projectWebsites}
         avgResponseTime={avgResponseTime}
         totalMonitors={totalMonitors}
         openIncidents={openIncidents}
-        days30Uptime={days30Uptime}
+        // days30Uptime={days30Uptime}
       />
 
-      {/* {projectWebsites.length > 0 && ( */}
-      <div className="flex gap-6 w-full">
-        <div className="flex flex-col w-2/3 gap-7">
-          {/* <div className="bg-[#111217] min-h-70 rounded-2xl border border-white/5 p-6 py-7 text-base flex flex-col gap-7">
-              <span>Reponse Time Chart</span>
-              <div className="h-80">
-                <ResponseTimeChart />
-              </div>
-            </div> */}
-          <div className="flex w-full gap-6 items-start">
-            <div
-              className="flex flex-col w-full justify-start gap-7 bg-[#111217] px-6 py-7 rounded-2xl
-                border border-white/5"
-            >
-              <div className="flex flex-col w-full items-end gap-3">
-                <div className="flex w-full justify-between items-end">
-                  {/* <div className='text-base'>Monitors</div> */}
+      <div className="flex flex-col gap-3 w-full">
+        <div className="flex gap-2 font-light text-base w-full justify-end">
+          {filters.map((filter) => (
+            <StatusFilterButton
+              key={filter.value}
+              {...filter}
+              active={filterCondition === filter.value}
+              onClick={setFilterCondition}
+              length={counts[filter.value]}
+            />
+          ))}
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {filteredWebsites.map((w, index) => (
+            <MonitorRow
+              key={w._id}
+              w={w}
+              setSelectedWebsite={setSelectedWebsite}
+              setShowModal={setShowModal}
+              setModalType={setModalType}
+              showOptions={showOptions}
+              setShowOptions={setShowOptions}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
-                  <div className="flex gap-2 font-light text-base w-full justify-end">
-                    {filters.map((filter) => (
-                      <StatusFilterButton
-                        key={filter.value}
-                        {...filter}
-                        active={filterCondition === filter.value}
-                        onClick={setFilterCondition}
-                        length={counts[filter.value]}
-                      />
-                    ))}
+  // {
+  // }
+  /* <div className="w-full flex justify-between items-center"> */
+}
+{
+  /* </div> */
+}
+{
+  /* {projectWebsites.length > 0 && ( */
+}
+{
+  /* <div className="flex flex-col w-3/3 gap-7"> */
+}
+{
+  /* <div className="flex w-full gap-6 items-start"> */
+}
+{
+  /* </div>
+</div> */
+}
+{
+  /* <div className="bg-[#111217] min-h-70 rounded-2xl border border-white/5 p-6 py-7 text-base flex flex-col gap-7">
+                  <span>Reponse Time Chart</span>
+                  <div className="h-80">
+                    <ResponseTimeChart />
                   </div>
-                  {/* <div className='flex gap-3 items-center'>
+                </div> */
+}
+{
+  /* <div
+                  className="flex flex-col w-full justify-start gap-7 bg-[#111217] px-6 py-7 rounded-2xl
+                    border border-white/5"
+                > */
+}
+{
+  /* <div className="flex flex-col w-full items-end gap-3"> */
+}
+{
+  /* <div className="flex w-full justify-between items-end"> */
+}
+{
+  /* <div className='text-base'>Monitors</div> */
+}
+{
+  /* <div className='flex gap-3 items-center'>
 
                                             <button className="rounded-xl px-4 py-2 bg-slate-800 hover:bg-slate-700 flex items-center gap-2
                     ">
@@ -149,22 +191,46 @@ export default function DashboardLayout({
                                                     Refresh monitors
                                                 </span>
                                             </button>
-                                        </div> */}
-                </div>
-              </div>
-              <div className="flex flex-col gap-3 min-h-[70vh]">
-                {filteredWebsites.map((w, index) => (
-                  <MonitorRow
-                    key={w._id}
-                    w={w}
-                    setSelectedWebsite={setSelectedWebsite}
-                    setShowModal={setShowModal}
-                    setModalType={setModalType}
-                    showOptions={showOptions}
-                    setShowOptions={setShowOptions}
-                  />
-                ))}
-                {Array.from({ length: emptyRows }).map((_, index) => (
+                                        </div> */
+}
+{
+  /* </div> */
+}
+{
+  /* </div> */
+}
+{
+  /* <div className=" grow flex flex-col justify-start items-start gap-8"> */
+}
+{
+  /* <span className='px-6 py-7 text-lg tracking-tight w-full justify-end flex text-right border border-white/10 rounded-2xl bg-[#111217]'>
+                            {activeProjectData?.name}<br />
+                            have shared among too.<br />
+                            have a share button to add usernames here.<br />
+                            notification buttons here too.
+                        </span> */
+}
+
+{
+  /* <div className="border border-white/5 w-full h-70 rounded-2xl bg-[#111217] p-6 py-7 gap-7 flex flex-col">
+            <span>Weekly Uptime Chart</span>
+            <div className="h-full">
+              <WeeklyUptimeChart />
+            </div>
+          </div> */
+}
+{
+  /* </div> */
+}
+{
+  /* </div> */
+}
+{
+  /* )} */
+}
+
+{
+  /* {Array.from({ length: emptyRows }).map((_, index) => (
                   <div
                     onClick={() => {
                       setShowModal(true);
@@ -182,28 +248,5 @@ export default function DashboardLayout({
                     <AddIcon className="h-4! w-4!" />
                     <span className="text-base font-light">Add website</span>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className=" grow flex flex-col justify-start items-start gap-8">
-          {/* <span className='px-6 py-7 text-lg tracking-tight w-full justify-end flex text-right border border-white/10 rounded-2xl bg-[#111217]'>
-                            {activeProjectData?.name}<br />
-                            have shared among too.<br />
-                            have a share button to add usernames here.<br />
-                            notification buttons here too.
-                        </span> */}
-
-          <div className="border border-white/5 w-full h-70 rounded-2xl bg-[#111217] p-6 py-7 gap-7 flex flex-col">
-            <span>Weekly Uptime Chart</span>
-            <div className="h-full">
-              <WeeklyUptimeChart />
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* )} */}
-    </div>
-  );
+                ))} */
 }

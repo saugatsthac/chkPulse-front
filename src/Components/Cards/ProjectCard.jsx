@@ -1,27 +1,37 @@
-export default function ProjectCard({ p, isActive, setActiveProjectData }) {
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 
-    return (
-        <div
-            onClick={() => {
-                setActiveProjectData(p)
-            }}
-            className={`flex gap1 w-full px-3 py-2 transition-all duration-300 flex-col cursor-pointer rounded-lg
-                                ${isActive ? 'bg-white/10' : 'hover:bg-white/20'}`}
-        >
-            <span className="flex items-center gap-2">
-                <span
-                    className="w-2.5 h-2.5 rounded-full inline-block"
-                    style={{ backgroundColor: p.color }}
-                />
-                <span>
-                    {p.name}
-                </span>
-            </span>
-            {/* <span className="text-sm text-white/80 w-full text-right">
+export default function ProjectCard({
+  p,
+  isActive,
+  setActiveProjectData,
+  length,
+}) {
+  return (
+    <div
+      onClick={() => {
+        setActiveProjectData(p);
+      }}
+      className={`flex gap1 w-full px-3 py-3 transition-all duration-300 flex-col cursor-pointer rounded-xl group border
+                                ${isActive ? "bg-white/10 border-white/10" : "hover:bg-white/20 border-transparent"}`}
+    >
+      <span className="flex items-center gap-4 pl-2 pr-2">
+        <span
+          className="w-3.5 h-3 rounded-full"
+          style={{ backgroundColor: p.color }}
+        />
+        <div className="flex w-full justify-between items-center">
+          <span>
+            {p.name}
+            {p.length}
+          </span>
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <OpenInFullIcon fontSize="" />
+          </span>
+        </div>
+      </span>
+      {/* <span className="text-sm text-white/80 w-full text-right">
                 {p.description}
             </span> */}
-        </div>
-
-
-    )
+    </div>
+  );
 }
