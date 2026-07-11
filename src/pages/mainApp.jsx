@@ -40,8 +40,8 @@ export default function Main() {
 
   useEffect(() => console.log(selectedWebsite), [selectedWebsite]);
 
-  const [modalType, setModalType] = useState("addWebsite");
-  const [showModal, setShowModal] = useState(true);
+  const [modalType, setModalType] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const onClose = () => {
     setShowModal(false);
@@ -94,7 +94,7 @@ export default function Main() {
         <Modal1 onClose={onClose}>
           {modalType === "addProjectAndWebsite" && (
             <AddProjectAndWebsites
-              activeProjectData={activeProjectData}
+              data={{ ...activeProjectData, websites: projectWebsites }}
               onClose={onClose}
               setProjectWebsites={setProjectWebsites}
             />

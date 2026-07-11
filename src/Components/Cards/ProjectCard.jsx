@@ -5,6 +5,8 @@ export default function ProjectCard({
   isActive,
   setActiveProjectData,
   length,
+  setShowModal,
+  setModalType,
 }) {
   return (
     <div
@@ -24,9 +26,15 @@ export default function ProjectCard({
             {p.name}
             {p.length}
           </span>
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <button
+            onClick={() => {
+              setShowModal(true);
+              setModalType("addProjectAndWebsite");
+            }}
+            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          >
             <OpenInFullIcon fontSize="" />
-          </span>
+          </button>
         </div>
       </span>
       {/* <span className="text-sm text-white/80 w-full text-right">

@@ -114,6 +114,8 @@ export default function SidebarLayout({
                   isActive={activeProjectData?._id === p._id}
                   setActiveProjectData={setActiveProjectData}
                   length={projects[activeProjectData?._id]?.length()}
+                  setShowModal={setShowModal}
+                  setModalType={setModalType}
                 />
               ))}
               {console.log(

@@ -110,7 +110,7 @@ export default function DashboardLayout({
       />
 
       <div className="flex flex-col gap-3 w-full">
-        <div className="flex gap-2 font-light text-base w-full justify-end">
+        {/* <div className="flex gap-2 font-light text-base w-full justify-end">
           {filters.map((filter) => (
             <StatusFilterButton
               key={filter.value}
@@ -120,7 +120,7 @@ export default function DashboardLayout({
               length={counts[filter.value]}
             />
           ))}
-        </div>
+        </div> */}
         <div className="grid grid-cols-3 gap-2">
           {filteredWebsites.map((w, index) => (
             <MonitorRow
