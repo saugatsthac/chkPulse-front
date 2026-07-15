@@ -118,10 +118,10 @@ export default function SidebarLayout({
                   setModalType={setModalType}
                 />
               ))}
-              {console.log(
+              {/* {console.log(
                 "carrot",
                 projects[activeProjectData?._id]?.length(),
-              )}
+              )} */}
               {projects.length < 5 && (
                 <QuickActionButton
                   icon={AddIcon}

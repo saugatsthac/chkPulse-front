@@ -13,8 +13,14 @@ const COLORS = [
   "#ec4899",
 ];
 
-export default function AddProjectAndWebsites({ data, onSubmit }) {
-  console.log("data", data.websites);
+export default function AddProjectAndWebsites({
+  data,
+  onSubmit,
+  onClose,
+  setProjectWebsites,
+  projectWebsites,
+}) {
+  console.log("data", data);
   const {
     register,
     control,
@@ -42,7 +48,7 @@ export default function AddProjectAndWebsites({ data, onSubmit }) {
           }))
         : [{ url: "" }],
     });
-  }, [data, reset]);
+  }, [data?._id, reset]);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -58,19 +64,39 @@ export default function AddProjectAndWebsites({ data, onSubmit }) {
       color: values.color,
       websites: values.websites.map((w) => w.url.trim()).filter(Boolean),
     };
-    // await api.post("/projects/create-and-modify", payload);
     try {
       const response = await api.post("/projects/create-and-modify", payload);
+      const responseData = response.data;
 
-      console.log(response.data);
-      // console.log(payload);
-
-      // Optional: notify the parent after a successful save
-      onSubmit?.(response.data);
+      if (responseData.removedWebsiteIds.length > 0) {
+        setProjectWebsites((prev) => ({
+          ...prev,
+          [responseData.project._id]: prev[responseData.project._id].filter(
+            (website) => !responseData.removedWebsiteIds.includes(website._id),
+          ),
+        }));
+      }
+      if (responseData.addedWebsites.length > 0) {
+        setProjectWebsites((prev) => ({
+          ...prev,
+          [responseData.project._id]: [
+            ...prev[responseData.project._id],
+            ...responseData.addedWebsites,
+          ],
+        }));
+      }
+      // setProjectWebsites((prev) => {
+      //   projectWebsites[response.data.projectId] = [
+      //     ...projectWebsites[response.data.projectId],
+      //     ...response.data.addedWebsites,
+      //   ];
+      // });
+      console.log("received", responseData);
+      onClose();
     } catch (err) {
       console.error(err);
     }
-  } 
+  }
 
   return (
     <form
@@ -91,9 +117,7 @@ export default function AddProjectAndWebsites({ data, onSubmit }) {
           />
 
           {errors.name && (
-            <p className="text-red-400 text-sm mt-1">
-              {errors.name.message}
-            </p>
+            <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>
           )}
 
           <h3 className="mt-8 mb-3">Project Color</h3>

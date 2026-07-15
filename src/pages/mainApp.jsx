@@ -38,7 +38,10 @@ export default function Main() {
   const [sidebarSelection, setSidebarSelection] = useState("monitors");
   const [selectedWebsite, setSelectedWebsite] = useState(null);
 
-  useEffect(() => console.log(selectedWebsite), [selectedWebsite]);
+  useEffect(
+    () => console.log(selectedWebsite, "projectWebsites", projectWebsites),
+    [selectedWebsite, projectWebsites],
+  );
 
   const [modalType, setModalType] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -97,6 +100,7 @@ export default function Main() {
               data={{ ...activeProjectData, websites: projectWebsites }}
               onClose={onClose}
               setProjectWebsites={setProjectWebsites}
+              projectWebsites={projectWebsites}
             />
           )}
 

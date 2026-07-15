@@ -31,7 +31,7 @@ export default function ResponseTimeChart({
         margin={{
           top: 5,
           right: 10,
-          left: -20,
+          left: 4,
           bottom: 5,
         }}
       >
@@ -46,7 +46,9 @@ export default function ResponseTimeChart({
         />
 
         <YAxis
-        //   reversed
+          //   reversed
+          width={45}
+          domain={[0, 5000]}
           stroke="#6b7280"
           tickLine={false}
           axisLine={false}

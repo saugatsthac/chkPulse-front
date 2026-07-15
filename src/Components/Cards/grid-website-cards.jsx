@@ -70,7 +70,7 @@ function MonitorRow({
         setShowModal(true);
       }}
     >
-      {console.log("Rendering:", w.url)}
+      {/* {console.log("Rendering:", w.url)} */}
       <div className={`h-full flex flex-col justify-st gap-3 w-full`}>
         <div className="flex gap-5 items-start">
           <div className="flex flex-col items-baseline gap-2">
