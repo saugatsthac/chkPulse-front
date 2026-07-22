@@ -31,7 +31,7 @@ export default function DeleteProject({
     };
 
     return (
-        <div className="bg-[#111827] border border-red-900/40 rounded-2xl p-6 w-[420px]">
+        <div className="bg-[#111827] border border-red-900/40 rounded-2xl p-6 w-105">
             <h2 className="text-xl font-semibold text-red-400 mb-4">
                 Delete Project
             </h2>

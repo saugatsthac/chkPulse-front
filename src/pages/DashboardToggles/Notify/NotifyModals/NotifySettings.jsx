@@ -23,7 +23,7 @@ export default function NotificationSettings({
     };
 
     return (
-        <div className="bg-[#111827] border border-slate-800 rounded-2xl p-6 w-[450px]">
+        <div className="bg-[#111827] border border-slate-800 rounded-2xl p-6 w-112.5">
             <h2 className="text-xl font-semibold mb-6">
                 Notification Settings
             </h2>

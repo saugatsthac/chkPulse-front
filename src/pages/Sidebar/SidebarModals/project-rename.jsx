@@ -54,7 +54,7 @@ export default function RenameProject({ project, setProjects, onClose }) {
   return (
     <form
       onSubmit={handleSubmit(handleSave)}
-      className="bg-[#111827] border border-slate-800 rounded-2xl p-6 w-[420px]"
+      className="bg-[#111827] border border-slate-800 rounded-2xl p-6 w-105"
     >
       <h2 className="text-lg font-semibold mb-4">Edit Project</h2>
 

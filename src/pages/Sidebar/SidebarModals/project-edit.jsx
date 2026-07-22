@@ -51,7 +51,7 @@ export default function EditWebsites({
   return (
     <form
       onSubmit={handleSubmit(handleSave)}
-      className="bg-[#111827] border border-slate-800 rounded-2xl p-6 w-[500px]"
+      className="bg-[#111827] border border-slate-800 rounded-2xl p-6 w-125"
     >
       <h2 className="text-lg font-semibold mb-4">Edit Websites</h2>
 

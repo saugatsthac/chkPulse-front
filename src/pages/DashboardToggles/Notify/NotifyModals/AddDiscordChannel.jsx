@@ -7,7 +7,7 @@ const [name, setName] = useState("");
 const [webhook, setWebhook] = useState("");
 
 return (
-<div className="w-[600px] bg-[#111217] rounded-2xl p-8">
+<div className="w-150 bg-[#111217] rounded-2xl p-8">
 
     <h2 className="text-2xl font-light">
         Add Discord Channel
